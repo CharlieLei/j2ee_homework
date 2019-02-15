@@ -7,4 +7,6 @@ public interface RestaurantAccountService {
      * @return 餐厅的7位识别码
      */
     public long register(String password);
+
+    public boolean login(long restaurantId, String password);
 }

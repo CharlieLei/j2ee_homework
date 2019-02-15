@@ -1,30 +1,21 @@
 package com.example.yummy.controller;
 
+import com.example.yummy.factory.ServiceFactory;
+import com.example.yummy.model.member.Member;
 import com.example.yummy.service.member.MemberAccountImpl;
 import com.example.yummy.service.member.MemberAccountService;
+import com.example.yummy.service.member.MemberInfoService;
 import org.springframework.web.bind.annotation.*;
 
 
 @CrossOrigin
 @RestController
+@RequestMapping("/member")
 public class MemberController {
 
-    @RequestMapping(value = "/registerMember", method = RequestMethod.GET)
-    public void registerMember(@RequestParam(value = "memberId") String memberId,
-                               @RequestParam(value = "password") String password,
-                               @RequestParam(value = "email") String email) {
-        MemberAccountService memberAccountService = new MemberAccountImpl();
-        memberAccountService.register(memberId, password, email);
-    }
-
-    @RequestMapping(value = "/activateMember", method = RequestMethod.GET)
-    public void activateMember(@RequestParam(value = "code") String code) {
-        MemberAccountService memberAccountService = new MemberAccountImpl();
-        memberAccountService.activateMember(code);
-    }
-
-
-    public void cancelMember(String memberId) {
-
+    @RequestMapping(value = "/getMember", method = RequestMethod.GET)
+    public Member getMember(@RequestParam(value = "memberId") String memberId) {
+        MemberInfoService memberInfoService = ServiceFactory.getMemberInfoService();
+        return memberInfoService.getMember(memberId);
     }
 }

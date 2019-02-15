@@ -9,22 +9,27 @@ import com.example.yummy.util.MailUtil;
 public class MemberAccountImpl implements MemberAccountService {
 
     @Override
-    public void register(String id, String password, String email) {
+    public void register(Member member) {
         //生成激活码
         String code = CodeUtil.generateUniqueCode();
+        member.setCode(code);
 
         MemberDao memberDao = DaoFactory.getMemberDao();
-        memberDao.save(new Member(id, password, email, code));
+        memberDao.save(member);
 
         //通过线程的方式给会员发送一封邮件
-        new Thread(new MailUtil(email, code)).start();
-
+        new Thread(new MailUtil(member.getEmail(), code)).start();
     }
 
     @Override
     public boolean activateMember(String code) {
         MemberDao memberDao = DaoFactory.getMemberDao();
         return memberDao.activateMember(code);
+    }
+
+    @Override
+    public boolean login(String memberId, String password) {
+        return false;
     }
 
     @Override

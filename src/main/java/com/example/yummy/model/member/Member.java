@@ -2,12 +2,13 @@ package com.example.yummy.model.member;
 
 import com.example.yummy.model.Address;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 会员
  */
-public class Member {
+public class Member implements Serializable {
     private String id;
     private String password;
 
@@ -22,11 +23,12 @@ public class Member {
     private String code;//验证码
     private MemberState state;
 
-    public Member(String id, String password, String email, String code) {
+    public Member(String id, String password, String email, String name, String phone) {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.code = code;
+        this.name = name;
+        this.phone = phone;
 
         this.level = MemberLevel.COPPER;
         this.state = MemberState.UNVERIFIED;
@@ -70,5 +72,9 @@ public class Member {
 
     public MemberState getState() {
         return state;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

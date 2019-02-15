@@ -6,4 +6,9 @@ public class RestaurantAccountImpl implements RestaurantAccountService {
     public long register(String password) {
         return 0;
     }
+
+    @Override
+    public boolean login(long restaurantId, String password) {
+        return false;
+    }
 }

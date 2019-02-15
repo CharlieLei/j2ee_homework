@@ -44,8 +44,8 @@ public class MailUtil implements Runnable {
             message.setSubject("账号激活");
             // 2.4设置邮件内容
             String content = "<html><head></head><body><h1>这是一封激活邮件,激活请点击以下链接</h1>" +
-                    "<h3><a href='http://localhost:8080/yummy/activateMember?code=" +
-                    code + "'>http://localhost:8080/yummy/activateMember?code=" +
+                    "<h3><a href='http://localhost:8080/activateMember?code=" +
+                    code + "'>http://localhost:8080/activateMember?code=" +
                     code + "</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
 
