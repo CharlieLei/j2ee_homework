@@ -14,7 +14,7 @@ public interface MemberDao {
      * 激活会员
      * @param code 激活码
      */
-    public boolean activateMember(String code);
+    public boolean activateMember(String memberId, String code);
 
     /**
      * 注销会员

@@ -16,10 +16,19 @@ public class RegisterController {
                                @RequestParam(value = "email") String email,
                                @RequestParam(value = "name") String name,
                                @RequestParam(value = "phone") String phone) {
+
         Member member = new Member(memberId, password, email, name, phone);
 
         MemberAccountService memberAccountService = new MemberAccountImpl();
         memberAccountService.register(member);
+    }
+
+    @RequestMapping(value = "/activateMember", method = RequestMethod.GET)
+    public void activateMember(@RequestParam(value = "memberId") String memberId,
+                               @RequestParam(value = "code") String code) {
+
+        MemberAccountService memberAccountService = new MemberAccountImpl();
+        memberAccountService.activateMember(memberId, code);
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)

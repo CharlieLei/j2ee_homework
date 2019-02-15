@@ -10,10 +10,12 @@ public class MailUtil implements Runnable {
     private static final String senderPassword = "LC2008@live.cn";
 
     private String receiverEmail;
+    private String memberId;
     private String code;
 
-    public MailUtil(String receiverEmail, String code) {
+    public MailUtil(String receiverEmail, String memberId, String code) {
         this.receiverEmail = receiverEmail;
+        this.memberId = memberId;
         this.code = code;
     }
 
@@ -43,10 +45,12 @@ public class MailUtil implements Runnable {
             // 2.3设置邮件主题
             message.setSubject("账号激活");
             // 2.4设置邮件内容
+            String url = "http://localhost:8081/register/activateMember?memberId=" + memberId +
+                    "&code=" + code;
             String content = "<html><head></head><body><h1>这是一封激活邮件,激活请点击以下链接</h1>" +
-                    "<h3><a href='http://localhost:8080/activateMember?code=" +
-                    code + "'>http://localhost:8080/activateMember?code=" +
-                    code + "</href></h3></body></html>";
+                    "<h3><a href='" + url + "'>"
+                    + url +
+                    "</href></h3></body></html>";
             message.setContent(content, "text/html;charset=UTF-8");
 
             // 3.发送邮件

@@ -18,13 +18,13 @@ public class MemberAccountImpl implements MemberAccountService {
         memberDao.save(member);
 
         //通过线程的方式给会员发送一封邮件
-        new Thread(new MailUtil(member.getEmail(), code)).start();
+        new Thread(new MailUtil(member.getEmail(), member.getId(), code)).start();
     }
 
     @Override
-    public boolean activateMember(String code) {
+    public boolean activateMember(String memberId, String code) {
         MemberDao memberDao = DaoFactory.getMemberDao();
-        return memberDao.activateMember(code);
+        return memberDao.activateMember(memberId, code);
     }
 
     @Override
