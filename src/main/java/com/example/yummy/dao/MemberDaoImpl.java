@@ -13,7 +13,7 @@ import java.util.List;
 @Repository("memberDao")
 public class MemberDaoImpl implements MemberDao {
     @Override
-    public void save(Member member) {
+    public void add(Member member) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.merge(member);
@@ -38,7 +38,7 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
-    public void cancelMember(String memberId) {
+    public void cancel(String memberId) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
@@ -68,7 +68,7 @@ public class MemberDaoImpl implements MemberDao {
     }
 
     @Override
-    public Member getMember(String memberId) {
+    public Member get(String memberId) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         Member member = session.get(Member.class, memberId);

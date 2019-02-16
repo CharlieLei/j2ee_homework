@@ -1,6 +1,7 @@
 package com.example.yummy.util;
 
 import com.example.yummy.model.member.Member;
+import com.example.yummy.model.restaurant.Restaurant;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -19,8 +20,11 @@ public class HibernateUtil {
 		 try {
 				Configuration config;
 				ServiceRegistry serviceRegistry;
+
 				config = new Configuration().configure();
 				config.addAnnotatedClass(Member.class);
+				config.addAnnotatedClass(Restaurant.class);
+
 				serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 				sessionFactory = config.buildSessionFactory(serviceRegistry);
 				return sessionFactory;

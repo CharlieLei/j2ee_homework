@@ -8,7 +8,7 @@ public class MemberInfoImpl implements MemberInfoService {
     @Override
     public Member getMember(String memberId) {
         MemberDao memberDao = DaoFactory.getMemberDao();
-        return memberDao.getMember(memberId);
+        return memberDao.get(memberId);
     }
 
     public void changePhone(String memberId, String newPhone) {

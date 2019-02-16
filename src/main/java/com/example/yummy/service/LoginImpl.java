@@ -13,7 +13,7 @@ public class LoginImpl implements LoginService {
     }
 
     @Override
-    public boolean restaurantLogin(long restaurantId, String password) {
+    public boolean restaurantLogin(String restaurantId, String password) {
         RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
         return restaurantDao.isLoginInfoCorrect(restaurantId, password);
     }

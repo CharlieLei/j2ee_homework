@@ -10,3 +10,11 @@ code varchar(50),
 state int,
 primary key (memberId)
 );
+
+create table if not exists restaurants(
+restaurantId char(7),
+password varchar(16),
+restaurantName varchar(10),
+restaurantType int,
+primary key (restaurantId)
+);

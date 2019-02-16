@@ -19,7 +19,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)
-    public boolean restaurantLogin(@RequestParam(value = "id") long restaurantId,
+    public boolean restaurantLogin(@RequestParam(value = "id") String restaurantId,
                                    @RequestParam(value = "password") String password) {
 
         RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
