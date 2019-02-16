@@ -5,9 +5,9 @@ public enum  RestaurantType {
     CHINESE,    //中餐厅
     WESTERN;    //西餐厅
 
-    public static RestaurantType getEnumByInt(int num) {
+    public static RestaurantType getEnum(String str) {
         for (RestaurantType type: RestaurantType.values()) {
-            if (type.ordinal() == num) {
+            if (type.toString().equals(str)) {
                 return type;
             }
         }

@@ -37,8 +37,8 @@ public class RegisterController {
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)
     public String restaurantRegister(@RequestParam(value = "password") String password,
                                      @RequestParam(value = "name") String name,
-                                     @RequestParam(value = "restaurantType") int restaurantType) {
-        Restaurant restaurant = new Restaurant(password, name, RestaurantType.getEnumByInt(restaurantType));
+                                     @RequestParam(value = "restaurantType") String restaurantType) {
+        Restaurant restaurant = new Restaurant(password, name, RestaurantType.getEnum(restaurantType));
 
         RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
         return restaurantAccountService.register(restaurant);

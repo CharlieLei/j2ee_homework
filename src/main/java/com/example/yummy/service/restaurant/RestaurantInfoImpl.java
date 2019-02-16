@@ -1,5 +1,7 @@
 package com.example.yummy.service.restaurant;
 
+import com.example.yummy.dao.RestaurantDao;
+import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantType;
@@ -17,6 +19,7 @@ public class RestaurantInfoImpl implements RestaurantInfoService {
 
     @Override
     public Restaurant getRestaurant(String restaurantId) {
-        return null;
+        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+        return restaurantDao.get(restaurantId);
     }
 }
