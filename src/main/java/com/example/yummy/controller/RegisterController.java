@@ -3,6 +3,7 @@ package com.example.yummy.controller;
 import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.restaurant.RestaurantAccountService;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,9 @@ public class RegisterController {
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)
     public String restaurantRegister(@RequestParam(value = "password") String password,
-                                   @RequestParam(value = "name") String name) {
-        Restaurant restaurant = new Restaurant(password, name);
+                                     @RequestParam(value = "name") String name,
+                                     @RequestParam(value = "restaurantType") int restaurantType) {
+        Restaurant restaurant = new Restaurant(password, name, RestaurantType.getEnumByInt(restaurantType));
 
         RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
         return restaurantAccountService.register(restaurant);

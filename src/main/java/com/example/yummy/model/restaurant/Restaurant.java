@@ -23,9 +23,10 @@ public class Restaurant implements Serializable {
     public Restaurant() {
     }
 
-    public Restaurant(String password, String name) {
+    public Restaurant(String password, String name, RestaurantType type) {
         this.password = password;
         this.name = name;
+        this.type = type;
     }
 
     public String getId() {
