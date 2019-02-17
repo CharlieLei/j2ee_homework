@@ -28,10 +28,4 @@ public class RestaurantAccountServiceImpl implements RestaurantAccountService {
     public boolean modifyInfo(Restaurant restaurant) {
         return false;
     }
-
-    @Override
-    public Restaurant get(String restaurantId) {
-        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
-        return restaurantDao.get(restaurantId);
-    }
 }
