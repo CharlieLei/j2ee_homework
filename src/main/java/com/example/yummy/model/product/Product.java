@@ -4,8 +4,8 @@ package com.example.yummy.model.product;
  * 餐厅提供的产品
  */
 public abstract class Product {
-    protected long id;
-    protected long restaurantId;
+    protected int id;
+    protected String restaurantId;
 
     private String name;
     private double price;

@@ -1,5 +1,6 @@
-package com.example.yummy.dao;
+package com.example.yummy.dao.impl;
 
+import com.example.yummy.dao.ManagerDao;
 import com.example.yummy.model.manager.Manager;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;

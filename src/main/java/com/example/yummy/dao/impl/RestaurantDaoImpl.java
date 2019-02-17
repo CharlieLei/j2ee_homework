@@ -1,5 +1,8 @@
-package com.example.yummy.dao;
+package com.example.yummy.dao.impl;
 
+import com.example.yummy.dao.BaseDao;
+import com.example.yummy.dao.RestaurantDao;
+import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
@@ -11,6 +14,9 @@ import java.util.List;
 
 @Repository
 public class RestaurantDaoImpl implements RestaurantDao {
+
+    private BaseDao baseDao = DaoFactory.getBaseDao();
+
     @Override
     public boolean isLoginInfoCorrect(String restaurantId, String password) {
         Session session = HibernateUtil.getSession();
@@ -31,22 +37,12 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public boolean add(Restaurant restaurant) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(restaurant);
-        transaction.commit();
-
-        return true;
+        return baseDao.save(restaurant);
     }
 
     @Override
     public boolean modify(Restaurant restaurant) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(restaurant);
-        transaction.commit();
-
-        return true;
+        return baseDao.update(restaurant);
     }
 
     @Override

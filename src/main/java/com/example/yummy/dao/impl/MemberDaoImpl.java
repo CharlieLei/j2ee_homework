@@ -1,5 +1,8 @@
-package com.example.yummy.dao;
+package com.example.yummy.dao.impl;
 
+import com.example.yummy.dao.BaseDao;
+import com.example.yummy.dao.MemberDao;
+import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberState;
 import com.example.yummy.util.HibernateUtil;
@@ -12,6 +15,9 @@ import java.util.List;
 
 @Repository
 public class MemberDaoImpl implements MemberDao {
+
+    private BaseDao baseDao = DaoFactory.getBaseDao();
+
     @Override
     public boolean isLoginInfoCorrect(String memberId, String password) {
         Session session = HibernateUtil.getSession();
@@ -32,12 +38,7 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public boolean add(Member member) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(member);
-        transaction.commit();
-
-        return true;
+        return baseDao.save(member);
     }
 
     @Override
@@ -72,11 +73,7 @@ public class MemberDaoImpl implements MemberDao {
 
     @Override
     public boolean modify(Member member) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(member);
-        transaction.commit();
-        return false;
+        return baseDao.update(member);
     }
 
     @Override

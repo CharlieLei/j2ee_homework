@@ -13,7 +13,7 @@ public interface OrderDao {
 
     public boolean changeState(int orderId, OrderState state);
 
-    public List<Order> getAllDeliveryingOrder(String memberId);
+    public List<Order> getAllDeliveringOrder(String memberId);
 
     public List<Order> getAllOrdersOfThisRestaurant(String restaurantId);
 }
