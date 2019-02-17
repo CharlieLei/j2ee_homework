@@ -91,7 +91,6 @@ primary key (orderId, productId)
 
 create table if not exists yummyBills(
 tradingDate timestamp ,
-memberId varchar(10) ,
 orderId int ,
 isSettled boolean ,
 primary key (tradingDate)

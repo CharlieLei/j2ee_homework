@@ -17,6 +17,8 @@ public class Restaurant implements Serializable {
     @Column(name = "restaurantName")
     private String name;
 //    private Address addr;
+    @Column(name = "balance")
+    private double balance;
     @Column(name = "restaurantType")
     private RestaurantType type;
 
@@ -59,5 +61,13 @@ public class Restaurant implements Serializable {
 
     public void setType(RestaurantType type) {
         this.type = type;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

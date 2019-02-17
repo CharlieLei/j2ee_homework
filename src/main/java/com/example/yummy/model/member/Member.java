@@ -36,10 +36,10 @@ public class Member implements Serializable {
     @Column(name = "balance")
     private double balance;
 
-    @Column(name = "code")
-    private String code;//验证码
     @Column(name = "state")
     private MemberState state;
+    @Column(name = "code")
+    private String code;//验证码
 
     public Member() {
 

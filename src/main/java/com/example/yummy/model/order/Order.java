@@ -1,10 +1,11 @@
 package com.example.yummy.model.order;
 
 import com.example.yummy.model.Address;
+import com.example.yummy.model.product.Product;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 订单
@@ -12,24 +13,40 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "orders")
 public class Order {
-    private long id;
-
+    @Id
+    @Column(name = "orderId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @Column(name = "memberId")
     private String memberId;
-    private long restaurantId;
+    @Column(name = "restaurantId")
+    private String restaurantId;
 
-    private Address memberDeliveryAddr;
-
+    @Column(name = "placingOrderTime")
     private Timestamp placingOrderTime;//下订单的时间
+    @Column(name = "fulfillingOrderTime")
     private Timestamp fulfillingOrderTime;//完成订单的时间
 
+    private Address senderAddr;
+    private Address receiverAddr;
+
+//    private List<Product> productList;
+
+    @Column(name = "totalAmount")
     private double totalAmount;//总金额
+    @Column(name = "refund")
+    private double refund;
+    @Column(name = "state")
     private OrderState state;
 
-    public long getId() {
+    public Order() {
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,20 +58,12 @@ public class Order {
         this.memberId = memberId;
     }
 
-    public long getRestaurantId() {
+    public String getRestaurantId() {
         return restaurantId;
     }
 
-    public void setRestaurantId(long restaurantId) {
+    public void setRestaurantId(String restaurantId) {
         this.restaurantId = restaurantId;
-    }
-
-    public Address getMemberDeliveryAddr() {
-        return memberDeliveryAddr;
-    }
-
-    public void setMemberDeliveryAddr(Address memberDeliveryAddr) {
-        this.memberDeliveryAddr = memberDeliveryAddr;
     }
 
     public Timestamp getPlacingOrderTime() {
@@ -73,12 +82,36 @@ public class Order {
         this.fulfillingOrderTime = fulfillingOrderTime;
     }
 
+    public Address getSenderAddr() {
+        return senderAddr;
+    }
+
+    public void setSenderAddr(Address senderAddr) {
+        this.senderAddr = senderAddr;
+    }
+
+    public Address getReceiverAddr() {
+        return receiverAddr;
+    }
+
+    public void setReceiverAddr(Address receiverAddr) {
+        this.receiverAddr = receiverAddr;
+    }
+
     public double getTotalAmount() {
         return totalAmount;
     }
 
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public double getRefund() {
+        return refund;
+    }
+
+    public void setRefund(double refund) {
+        this.refund = refund;
     }
 
     public OrderState getState() {
