@@ -31,7 +31,7 @@ public class RegisterController {
                                @RequestParam(value = "code") String code) {
 
         MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
-        memberAccountService.activateMember(memberId, code);
+        memberAccountService.activate(memberId, code);
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)

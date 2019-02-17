@@ -5,7 +5,7 @@ import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.util.StringUtil;
 
-public class RestaurantAccountImpl implements RestaurantAccountService {
+public class RestaurantAccountServiceImpl implements RestaurantAccountService {
 
     @Override
     public String register(Restaurant restaurant) {
@@ -22,5 +22,16 @@ public class RestaurantAccountImpl implements RestaurantAccountService {
     public boolean login(String restaurantId, String password) {
         RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
         return restaurantDao.isLoginInfoCorrect(restaurantId, password);
+    }
+
+    @Override
+    public boolean modifyInfo(Restaurant restaurant) {
+        return false;
+    }
+
+    @Override
+    public Restaurant get(String restaurantId) {
+        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+        return restaurantDao.get(restaurantId);
     }
 }

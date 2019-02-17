@@ -1,6 +1,7 @@
 package com.example.yummy.controller;
 
 import com.example.yummy.factory.ServiceFactory;
+import com.example.yummy.service.manager.ManagerAccountService;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.restaurant.RestaurantAccountService;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,7 @@ public class LoginController {
     public boolean managerLogin(@RequestParam(value = "id") String managerId,
                                 @RequestParam(value = "password") String password) {
 
-        return false;
+        ManagerAccountService managerAccountService = ServiceFactory.getManagerAccountService();
+        return managerAccountService.login(managerId, password);
     }
 }

@@ -6,7 +6,7 @@ import com.example.yummy.model.member.Member;
 import com.example.yummy.util.StringUtil;
 import com.example.yummy.util.MailUtil;
 
-public class MemberAccountImpl implements MemberAccountService {
+public class MemberAccountServiceImpl implements MemberAccountService {
 
     @Override
     public void register(Member member) {
@@ -22,7 +22,7 @@ public class MemberAccountImpl implements MemberAccountService {
     }
 
     @Override
-    public boolean activateMember(String memberId, String code) {
+    public boolean activate(String memberId, String code) {
         MemberDao memberDao = DaoFactory.getMemberDao();
         return memberDao.activateMember(memberId, code);
     }
@@ -33,8 +33,14 @@ public class MemberAccountImpl implements MemberAccountService {
     }
 
     @Override
-    public void cancel(String memberId) {
+    public boolean cancel(String memberId) {
         MemberDao memberDao = DaoFactory.getMemberDao();
         memberDao.cancel(memberId);
+        return false;
+    }
+
+    @Override
+    public boolean modifyInfo(Member member) {
+        return false;
     }
 }

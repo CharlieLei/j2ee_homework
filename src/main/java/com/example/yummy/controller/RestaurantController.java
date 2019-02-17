@@ -3,7 +3,9 @@ package com.example.yummy.controller;
 import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.statistics.RestaurantStatistics;
-import com.example.yummy.service.restaurant.RestaurantInfoService;
+import com.example.yummy.service.restaurant.RestaurantAccountService;
+import com.example.yummy.service.restaurant.RestaurantService;
+import com.example.yummy.service.restaurant.RestaurantStatisticsService;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -12,18 +14,20 @@ import org.springframework.web.bind.annotation.*;
 public class RestaurantController {
 
     @RequestMapping(value = "/modifyInfo", method = RequestMethod.GET)
-    public boolean modifyInfo(String restaurantId) {
-        return false;
+    public boolean modifyInfo(@RequestParam(value = "restaurantId") Restaurant restaurant) {
+        RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
+        return restaurantAccountService.modifyInfo(restaurant);
     }
 
     @RequestMapping(value = "/getRestaurant", method = RequestMethod.GET)
     public Restaurant getRestaurant(@RequestParam(value = "restaurantId") String restaurantId) {
-        RestaurantInfoService restaurantInfoService = ServiceFactory.getRestaurantInfoService();
-        return restaurantInfoService.getRestaurant(restaurantId);
+        RestaurantService restaurantService = ServiceFactory.getRestaurantService();
+        return restaurantService.get(restaurantId);
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
     public RestaurantStatistics getStatistics(@RequestParam(value = "restaurantId") String restaurantId) {
-        return null;
+        RestaurantStatisticsService restaurantStatisticsService = ServiceFactory.getRestaurantStatisticsService();
+        return restaurantStatisticsService.get(restaurantId);
     }
 }

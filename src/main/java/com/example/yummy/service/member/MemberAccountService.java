@@ -5,9 +5,11 @@ import com.example.yummy.model.member.Member;
 public interface MemberAccountService {
     public void register(Member member);
 
-    public boolean activateMember(String memberId, String code);
+    public boolean activate(String memberId, String code);
 
     public boolean login(String memberId, String password);
 
-    public void cancel(String memberId);
+    public boolean cancel(String memberId);
+
+    public boolean modifyInfo(Member member);
 }
