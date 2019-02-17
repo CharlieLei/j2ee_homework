@@ -4,10 +4,12 @@ import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+@Repository
 public class RestaurantDaoImpl implements RestaurantDao {
     @Override
     public boolean isLoginInfoCorrect(String restaurantId, String password) {
@@ -28,11 +30,23 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public void add(Restaurant restaurant) {
+    public boolean add(Restaurant restaurant) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.merge(restaurant);
         transaction.commit();
+
+        return true;
+    }
+
+    @Override
+    public boolean modify(Restaurant restaurant) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.merge(restaurant);
+        transaction.commit();
+
+        return true;
     }
 
     @Override

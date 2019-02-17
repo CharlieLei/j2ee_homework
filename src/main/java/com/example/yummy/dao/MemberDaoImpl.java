@@ -10,45 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-@Repository("memberDao")
+@Repository
 public class MemberDaoImpl implements MemberDao {
-    @Override
-    public void add(Member member) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        session.merge(member);
-        transaction.commit();
-    }
-
-    @Override
-    public boolean activateMember(String memberId, String code) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-        Member member = session.get(Member.class, memberId);
-
-        if (member != null) {
-            member.setState(MemberState.VALID);
-            session.merge(member);
-            transaction.commit();
-            return true;
-        }else {
-            transaction.commit();
-            return false;
-        }
-    }
-
-    @Override
-    public void cancel(String memberId) {
-        Session session = HibernateUtil.getSession();
-        Transaction transaction = session.beginTransaction();
-
-        Member member = session.get(Member.class, memberId);
-        member.setState(MemberState.CANCELLED);
-        session.merge(member);
-
-        transaction.commit();
-    }
-
     @Override
     public boolean isLoginInfoCorrect(String memberId, String password) {
         Session session = HibernateUtil.getSession();
@@ -65,6 +28,55 @@ public class MemberDaoImpl implements MemberDao {
         transaction.commit();
 
         return list.size() == 1;
+    }
+
+    @Override
+    public boolean add(Member member) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.merge(member);
+        transaction.commit();
+
+        return true;
+    }
+
+    @Override
+    public boolean activate(String memberId, String code) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Member member = session.get(Member.class, memberId);
+
+        if (member != null) {
+            member.setState(MemberState.VALID);
+            session.merge(member);
+            transaction.commit();
+            return true;
+        }else {
+            transaction.commit();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean delete(String memberId) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Member member = session.get(Member.class, memberId);
+        member.setState(MemberState.CANCELLED);
+        session.merge(member);
+
+        transaction.commit();
+        return true;
+    }
+
+    @Override
+    public boolean modify(Member member) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        session.merge(member);
+        transaction.commit();
+        return false;
     }
 
     @Override
