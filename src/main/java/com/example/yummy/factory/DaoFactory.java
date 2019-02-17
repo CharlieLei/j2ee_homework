@@ -2,9 +2,7 @@ package com.example.yummy.factory;
 
 
 import com.example.yummy.dao.*;
-import com.example.yummy.dao.impl.BaseDaoImpl;
-import com.example.yummy.dao.impl.MemberDaoImpl;
-import com.example.yummy.dao.impl.RestaurantDaoImpl;
+import com.example.yummy.dao.impl.*;
 
 public class DaoFactory {
     public static BaseDao getBaseDao() {
@@ -20,6 +18,18 @@ public class DaoFactory {
     }
 
     public static ManagerDao getManagerDao() {
-        return null;
+        return new ManagerDaoImpl();
+    }
+
+    public static OrderDao getOrderDao() {
+        return new OrderDaoImpl();
+    }
+
+    public static ProductDao getProductDao() {
+        return new ProductDaoImpl();
+    }
+
+    public static YummyDao getYummyDao() {
+        return new YummyDaoImpl();
     }
 }

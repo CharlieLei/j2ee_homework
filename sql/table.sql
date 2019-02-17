@@ -58,9 +58,10 @@ primary key (productId)
 );
 
 create table if not exists productItems(
+id int auto_increment,
 productId int,
 itemId int,
-primary key (productId, itemId)
+primary key (id)
 );
 
 create table if not exists orders(

@@ -4,6 +4,7 @@ import com.example.yummy.model.Address;
 import com.example.yummy.model.product.Product;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
     @Id
     @Column(name = "orderId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

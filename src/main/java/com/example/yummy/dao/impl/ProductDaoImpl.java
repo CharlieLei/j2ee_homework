@@ -4,6 +4,7 @@ import com.example.yummy.dao.BaseDao;
 import com.example.yummy.dao.ProductDao;
 import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.product.Product;
+import com.example.yummy.model.product.ProductItem;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,7 +18,15 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public boolean add(Product product) {
-        return baseDao.save(product);
+        Product newProduct = new Product();
+        baseDao.save(newProduct);
+
+        product.setId(newProduct.getId());
+        for (ProductItem item: product.getProductItemIdList()) {
+            item.setProductId(product.getId());
+            baseDao.save(item);
+        }
+        return baseDao.update(product);
     }
 
     @Override

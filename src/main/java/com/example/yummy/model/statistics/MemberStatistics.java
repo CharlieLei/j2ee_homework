@@ -1,4 +1,6 @@
 package com.example.yummy.model.statistics;
 
-public class MemberStatistics {
+import java.io.Serializable;
+
+public class MemberStatistics implements Serializable {
 }

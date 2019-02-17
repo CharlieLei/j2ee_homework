@@ -1,14 +1,16 @@
 package com.example.yummy.model.product;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 餐厅提供的产品
  */
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product implements Serializable {
     @Id
     @Column(name = "productId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,9 @@ public class Product {
     @Column(name = "price")
     private double price;
 
-//    private List<Integer> productItemIdList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "productId")
+    private List<ProductItem> productItemIdList;
 
 
     public Product() {
@@ -67,5 +71,13 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<ProductItem> getProductItemIdList() {
+        return productItemIdList;
+    }
+
+    public void setProductItemIdList(List<ProductItem> productItemIdList) {
+        this.productItemIdList = productItemIdList;
     }
 }

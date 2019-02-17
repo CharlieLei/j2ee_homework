@@ -24,7 +24,7 @@ public class MemberAccountServiceImpl implements MemberAccountService {
     @Override
     public boolean activate(String memberId, String code) {
         MemberDao memberDao = DaoFactory.getMemberDao();
-        return memberDao.activateMember(memberId, code);
+        return memberDao.activate(memberId, code);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MemberAccountServiceImpl implements MemberAccountService {
     @Override
     public boolean cancel(String memberId) {
         MemberDao memberDao = DaoFactory.getMemberDao();
-        memberDao.cancel(memberId);
+        memberDao.delete(memberId);
         return false;
     }
 

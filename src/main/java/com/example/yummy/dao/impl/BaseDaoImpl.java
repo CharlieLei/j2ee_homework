@@ -10,7 +10,8 @@ public class BaseDaoImpl implements BaseDao {
     public boolean save(Object bean) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
-        session.merge(bean);
+        session.save(bean);
+        session.flush();
         transaction.commit();
 
         return true;
@@ -21,6 +22,7 @@ public class BaseDaoImpl implements BaseDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         session.update(bean);
+        session.flush();
         transaction.commit();
 
         return true;
