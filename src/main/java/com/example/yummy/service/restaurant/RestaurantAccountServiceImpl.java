@@ -7,12 +7,13 @@ import com.example.yummy.util.StringUtil;
 
 public class RestaurantAccountServiceImpl implements RestaurantAccountService {
 
+    private RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+
     @Override
     public String register(Restaurant restaurant) {
         String memberId = StringUtil.generateMemberId();
         restaurant.setId(memberId);
 
-        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
         restaurantDao.add(restaurant);
 
         return memberId;
@@ -20,12 +21,11 @@ public class RestaurantAccountServiceImpl implements RestaurantAccountService {
 
     @Override
     public boolean login(String restaurantId, String password) {
-        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
         return restaurantDao.isLoginInfoCorrect(restaurantId, password);
     }
 
     @Override
     public boolean modifyInfo(Restaurant restaurant) {
-        return false;
+        return restaurantDao.modify(restaurant);
     }
 }

@@ -5,9 +5,11 @@ import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.member.Member;
 
 public class MemberServiceImpl implements MemberService {
+
+    private MemberDao memberDao = DaoFactory.getMemberDao();
+
     @Override
     public Member get(String memberId) {
-        MemberDao memberDao = DaoFactory.getMemberDao();
         return memberDao.get(memberId);
     }
 }

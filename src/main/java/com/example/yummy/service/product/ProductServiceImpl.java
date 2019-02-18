@@ -7,15 +7,16 @@ import com.example.yummy.model.product.Product;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
+
+    private ProductDao productDao = DaoFactory.getProductDao();
+
     @Override
     public boolean add(Product product) {
-        ProductDao productDao = DaoFactory.getProductDao();
         return productDao.add(product);
     }
 
     @Override
     public List<Product> getAllProducts(String restaurantId) {
-        ProductDao productDao = DaoFactory.getProductDao();
         return productDao.getAllByRestaurant(restaurantId);
     }
 }

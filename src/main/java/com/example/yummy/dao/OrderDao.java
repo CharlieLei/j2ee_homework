@@ -11,7 +11,9 @@ public interface OrderDao {
 
     public boolean delete(int orderId);
 
-    public boolean changeState(int orderId, OrderState state);
+    public boolean modify(Order order);
+
+    public Order get(int orderId);
 
     public List<Order> getAllDeliveringOrder(String memberId);
 

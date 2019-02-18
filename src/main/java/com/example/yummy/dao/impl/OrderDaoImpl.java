@@ -30,20 +30,18 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean changeState(int orderId, OrderState state) {
-        boolean result = false;
+    public boolean modify(Order order) {
+        return baseDao.update(order);
+    }
 
+    @Override
+    public Order get(int orderId) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         Order order = session.get(Order.class, orderId);
-        if (order != null) {
-            order.setState(state);
-            session.update(order);
-            result = true;
-        }
         transaction.commit();
 
-        return result;
+        return order;
     }
 
     @Override

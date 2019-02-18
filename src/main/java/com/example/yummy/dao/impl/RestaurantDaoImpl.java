@@ -4,6 +4,7 @@ import com.example.yummy.dao.BaseDao;
 import com.example.yummy.dao.RestaurantDao;
 import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -63,5 +64,10 @@ public class RestaurantDaoImpl implements RestaurantDao {
     @Override
     public boolean setInfoChangeSettled(String restaurantId) {
         return false;
+    }
+
+    @Override
+    public List<Restaurant> getRestaurantByType(RestaurantType type) {
+        return null;
     }
 }

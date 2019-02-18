@@ -8,13 +8,14 @@ import com.example.yummy.util.MailUtil;
 
 public class MemberAccountServiceImpl implements MemberAccountService {
 
+    private MemberDao memberDao = DaoFactory.getMemberDao();
+
     @Override
     public void register(Member member) {
         //生成激活码
         String code = StringUtil.generateUniqueCode();
         member.setCode(code);
 
-        MemberDao memberDao = DaoFactory.getMemberDao();
         memberDao.add(member);
 
         //通过线程的方式给会员发送一封邮件
@@ -23,24 +24,21 @@ public class MemberAccountServiceImpl implements MemberAccountService {
 
     @Override
     public boolean activate(String memberId, String code) {
-        MemberDao memberDao = DaoFactory.getMemberDao();
         return memberDao.activate(memberId, code);
     }
 
     @Override
     public boolean login(String memberId, String password) {
-        return false;
+        return memberDao.isLoginInfoCorrect(memberId, password);
     }
 
     @Override
     public boolean cancel(String memberId) {
-        MemberDao memberDao = DaoFactory.getMemberDao();
-        memberDao.delete(memberId);
-        return false;
+        return memberDao.delete(memberId);
     }
 
     @Override
     public boolean modifyInfo(Member member) {
-        return false;
+        return memberDao.modify(member);
     }
 }
