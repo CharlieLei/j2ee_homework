@@ -18,5 +18,5 @@ public interface RestaurantDao {
 
     public boolean setInfoChangeSettled(String restaurantId);
 
-    public List<Restaurant> getRestaurantByType(RestaurantType type);
+    public List<Restaurant> getRestaurantsByType(RestaurantType type);
 }

@@ -8,5 +8,5 @@ import java.util.List;
 public interface RestaurantService {
     public Restaurant get(String restaurantId);
 
-    public List<Restaurant> getRestaurantByType(RestaurantType restaurantType);
+    public List<Restaurant> getRestaurantsByType(RestaurantType restaurantType);
 }

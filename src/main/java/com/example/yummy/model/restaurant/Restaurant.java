@@ -21,7 +21,8 @@ public class Restaurant implements Serializable {
     @Column(name = "balance")
     private double balance;
     @Column(name = "restaurantType")
-    private RestaurantType type;
+    @Enumerated(EnumType.ORDINAL)
+    private RestaurantType restaurantType;
 
     public Restaurant() {
     }
@@ -29,7 +30,7 @@ public class Restaurant implements Serializable {
     public Restaurant(String password, String name, RestaurantType type) {
         this.password = password;
         this.name = name;
-        this.type = type;
+        this.restaurantType = type;
     }
 
     public String getId() {
@@ -56,12 +57,12 @@ public class Restaurant implements Serializable {
         this.name = name;
     }
 
-    public RestaurantType getType() {
-        return type;
+    public RestaurantType getRestaurantType() {
+        return restaurantType;
     }
 
-    public void setType(RestaurantType type) {
-        this.type = type;
+    public void setRestaurantType(RestaurantType type) {
+        this.restaurantType = type;
     }
 
     public double getBalance() {

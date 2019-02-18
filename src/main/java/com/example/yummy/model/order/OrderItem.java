@@ -13,6 +13,8 @@ public class OrderItem {
     private int orderId;
     @Column(name = "productId")
     private int productId;
+    @Column(name = "itemAmount")
+    private int itemAmount;
 
     public int getOrderId() {
         return orderId;
@@ -28,5 +30,13 @@ public class OrderItem {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public int getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(int itemAmount) {
+        this.itemAmount = itemAmount;
     }
 }

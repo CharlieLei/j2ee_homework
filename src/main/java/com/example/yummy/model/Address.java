@@ -29,11 +29,11 @@ public class Address implements Serializable {
         this.latitude = latitude;
     }
 
-    public String getName() {
+    public String getAddrName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setAddrName(String name) {
         this.name = name;
     }
 }

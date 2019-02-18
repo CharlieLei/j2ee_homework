@@ -21,6 +21,7 @@ public class ProductController {
 
     @RequestMapping(value = "/getAllProductsOfThisRestaurant", method = RequestMethod.GET)
     public List<Product> getAllProductsOfThisRestaurant(@RequestParam(value = "restaurantId") String restaurantId) {
-        return productService.getAllProducts(restaurantId);
+        List<Product> list = productService.getAllProducts(restaurantId);
+        return list;
     }
 }

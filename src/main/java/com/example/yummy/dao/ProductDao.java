@@ -11,5 +11,7 @@ public interface ProductDao {
 
     public boolean modify(Product product);
 
+    public Product get(int productId);
+
     public List<Product> getAllByRestaurant(String restaurantId);
 }

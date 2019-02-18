@@ -67,7 +67,27 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public List<Restaurant> getRestaurantByType(RestaurantType type) {
-        return null;
+    public List<Restaurant> getRestaurantsByType(RestaurantType type) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        List<Restaurant> list;
+        if (type == null) {
+            TypedQuery<Restaurant> query = session.createQuery(
+                    "select r from Restaurant r",
+                    Restaurant.class
+            );
+            list = query.getResultList();
+        }else {
+            TypedQuery<Restaurant> query = session.createQuery(
+                    "select r from Restaurant r where r.restaurantType = ?1",
+                    Restaurant.class
+            );
+            query.setParameter(1, type);
+            list = query.getResultList();
+        }
+
+        transaction.commit();
+        return list;
     }
 }

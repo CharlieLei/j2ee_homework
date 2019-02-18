@@ -1,5 +1,7 @@
 package com.example.yummy.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +28,8 @@ public class Product implements Serializable {
     @Column(name = "price")
     private double price;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "productId", referencedColumnName = "productId")
     private List<ProductItem> productItemIdList;
 

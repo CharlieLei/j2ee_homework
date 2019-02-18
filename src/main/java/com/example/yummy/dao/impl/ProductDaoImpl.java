@@ -35,6 +35,15 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public Product get(int productId) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        Product product = session.get(Product.class, productId);
+        transaction.commit();
+        return product;
+    }
+
+    @Override
     public List<Product> getAllByRestaurant(String restaurantId) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();

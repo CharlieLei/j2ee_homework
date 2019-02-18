@@ -17,7 +17,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getRestaurantByType(RestaurantType restaurantType) {
-        return restaurantDao.getRestaurantByType(restaurantType);
+    public List<Restaurant> getRestaurantsByType(RestaurantType restaurantType) {
+        return restaurantDao.getRestaurantsByType(restaurantType);
     }
 }

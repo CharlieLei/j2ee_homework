@@ -90,6 +90,7 @@ create table if not exists orderItems(
 id int auto_increment,
 orderId int,
 productId int,
+itemAmount int,
 primary key (id)
 );
 
