@@ -14,27 +14,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/member")
 public class MemberController {
 
+    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
+    private MemberService memberService = ServiceFactory.getMemberService();
+    private MemberStatisticsService memberStatisticsService = ServiceFactory.getMemberStatisticsService();
+
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     public boolean cancelMember(@RequestParam(value = "memberId") String memberId) {
-        MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
         return memberAccountService.cancel(memberId);
     }
 
     @RequestMapping(value = "/modifyInfo", method = RequestMethod.GET)
     public boolean modifyInfo(@RequestParam(value = "member") Member member) {
-        MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
         return memberAccountService.modifyInfo(member);
     }
 
     @RequestMapping(value = "/getMember", method = RequestMethod.GET)
     public Member getMember(@RequestParam(value = "memberId") String memberId) {
-        MemberService memberService = ServiceFactory.getMemberService();
         return memberService.get(memberId);
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
     public MemberStatistics getStatistics(@RequestParam(value = "memberId") String memberId) {
-        MemberStatisticsService memberStatisticsService = ServiceFactory.getMemberStatisticsService();
         return memberStatisticsService.get();
     }
 }

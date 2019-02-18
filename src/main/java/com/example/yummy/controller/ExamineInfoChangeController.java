@@ -12,15 +12,15 @@ import java.util.List;
 @RequestMapping(value = "/examineInfoChange")
 public class ExamineInfoChangeController {
 
+    private ExamineInfoChangeService examineInfoChangeService = ServiceFactory.getExamineInfoChangeService();
+
     @RequestMapping(value = "/getAllRestaurantInfoChanges", method = RequestMethod.GET)
     public List<Restaurant> getAllRestaurantInfoChanges() {
-        ExamineInfoChangeService examineInfoChangeService = ServiceFactory.getExamineInfoChangeService();
         return examineInfoChangeService.getAllRestaurantInfoChanges();
     }
 
     @RequestMapping(value = "/approveRestaurantInfoChange", method = RequestMethod.GET)
     public boolean approveRestaurantInfoChange(@RequestParam(value = "restaurantId") String restaurantId) {
-        ExamineInfoChangeService examineInfoChangeService = ServiceFactory.getExamineInfoChangeService();
         return examineInfoChangeService.approveRestaurantInfoChange(restaurantId);
     }
 }

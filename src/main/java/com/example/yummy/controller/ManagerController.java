@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/manager")
 public class ManagerController {
 
+    private ManagerStatisticsService managerStatisticsService = ServiceFactory.getManagerStatisticsService();
+
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
     public ManagerStatistics getStatistics() {
-        ManagerStatisticsService managerStatisticsService = ServiceFactory.getManagerStatisticsService();
         return managerStatisticsService.get();
     }
 }

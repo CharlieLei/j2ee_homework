@@ -11,6 +11,8 @@ public interface OrderService {
 
     public boolean withdraw(int orderId);
 
+    public boolean complete(int orderId);
+
     public List<Order> getAllDeliveringOrders(String memberId);
 
     public List<Order> getAllOrdersOfThisRestaurant(String restaurantId);

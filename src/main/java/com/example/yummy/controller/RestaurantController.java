@@ -13,21 +13,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
+    private RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
+    private RestaurantService restaurantService = ServiceFactory.getRestaurantService();
+    private RestaurantStatisticsService restaurantStatisticsService = ServiceFactory.getRestaurantStatisticsService();
+
     @RequestMapping(value = "/modifyInfo", method = RequestMethod.GET)
     public boolean modifyInfo(@RequestParam(value = "restaurantId") Restaurant restaurant) {
-        RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
         return restaurantAccountService.modifyInfo(restaurant);
     }
 
     @RequestMapping(value = "/getRestaurant", method = RequestMethod.GET)
     public Restaurant getRestaurant(@RequestParam(value = "restaurantId") String restaurantId) {
-        RestaurantService restaurantService = ServiceFactory.getRestaurantService();
         return restaurantService.get(restaurantId);
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
     public RestaurantStatistics getStatistics(@RequestParam(value = "restaurantId") String restaurantId) {
-        RestaurantStatisticsService restaurantStatisticsService = ServiceFactory.getRestaurantStatisticsService();
         return restaurantStatisticsService.get(restaurantId);
     }
 }

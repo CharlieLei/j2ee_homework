@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/register")
 public class RegisterController {
 
+    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
+    private  RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
+
     @RequestMapping(value = "/member", method = RequestMethod.GET)
     public void memberRegister(@RequestParam(value = "memberId") String memberId,
                                @RequestParam(value = "password") String password,
@@ -22,7 +25,6 @@ public class RegisterController {
 
         Member member = new Member(memberId, password, email, name, phone);
 
-        MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
         memberAccountService.register(member);
     }
 
@@ -30,7 +32,6 @@ public class RegisterController {
     public void activateMember(@RequestParam(value = "memberId") String memberId,
                                @RequestParam(value = "code") String code) {
 
-        MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
         memberAccountService.activate(memberId, code);
     }
 
@@ -40,7 +41,6 @@ public class RegisterController {
                                      @RequestParam(value = "restaurantType") String restaurantType) {
         Restaurant restaurant = new Restaurant(password, name, RestaurantType.getEnum(restaurantType));
 
-        RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
         return restaurantAccountService.register(restaurant);
     }
 }

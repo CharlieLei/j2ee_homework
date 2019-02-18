@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
+    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
+    private RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
+    private ManagerAccountService managerAccountService = ServiceFactory.getManagerAccountService();
+
     @RequestMapping(value = "/member", method = RequestMethod.GET)
     public boolean memberLogin(@RequestParam(value = "id") String memberId,
                                @RequestParam(value = "password") String password) {
 
-        MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
         return memberAccountService.login(memberId, password);
     }
 
@@ -23,7 +26,6 @@ public class LoginController {
     public boolean restaurantLogin(@RequestParam(value = "id") String restaurantId,
                                    @RequestParam(value = "password") String password) {
 
-        RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
         return restaurantAccountService.login(restaurantId, password);
     }
 
@@ -31,7 +33,6 @@ public class LoginController {
     public boolean managerLogin(@RequestParam(value = "id") String managerId,
                                 @RequestParam(value = "password") String password) {
 
-        ManagerAccountService managerAccountService = ServiceFactory.getManagerAccountService();
         return managerAccountService.login(managerId, password);
     }
 }
