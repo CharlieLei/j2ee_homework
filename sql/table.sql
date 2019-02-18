@@ -72,10 +72,12 @@ restaurantId char(7),
 placingOrderTime timestamp,
 fulfillingOrderTime timestamp ,
 
-senderLogitude double ,
+senderLongitude double ,
 senderLatitude double ,
-receiverLogitude double ,
+senderAddrName varchar(100),
+receiverLongitude double ,
 receiverLatitude double ,
+receiverAddrName varchar(100),
 
 totalAmount double ,
 refund double ,
@@ -85,9 +87,10 @@ primary key (orderId)
 );
 
 create table if not exists orderItems(
+id int auto_increment,
 orderId int,
 productId int,
-primary key (orderId, productId)
+primary key (id)
 );
 
 create table if not exists yummyBills(

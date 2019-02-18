@@ -1,5 +1,7 @@
 package com.example.yummy.service.order;
 
+import com.example.yummy.dao.OrderDao;
+import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.order.Order;
 
 import java.util.List;
@@ -7,7 +9,8 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Override
     public boolean place(Order order) {
-        return false;
+        OrderDao orderDao = DaoFactory.getOrderDao();
+        return orderDao.add(order);
     }
 
     @Override

@@ -16,7 +16,8 @@ public class Restaurant implements Serializable {
 
     @Column(name = "restaurantName")
     private String name;
-//    private Address addr;
+    @Embedded
+    private Address address;
     @Column(name = "balance")
     private double balance;
     @Column(name = "restaurantType")
@@ -69,5 +70,13 @@ public class Restaurant implements Serializable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

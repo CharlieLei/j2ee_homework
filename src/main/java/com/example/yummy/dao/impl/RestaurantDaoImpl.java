@@ -54,4 +54,14 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         return restaurant;
     }
+
+    @Override
+    public List<Restaurant> getAllInfoChanges() {
+        return null;
+    }
+
+    @Override
+    public boolean setInfoChangeSettled(String restaurantId) {
+        return false;
+    }
 }

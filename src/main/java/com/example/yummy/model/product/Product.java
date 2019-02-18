@@ -2,6 +2,7 @@ package com.example.yummy.model.product;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -26,11 +27,12 @@ public class Product implements Serializable {
     private double price;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "productId")
+    @JoinColumn(name = "productId", referencedColumnName = "productId")
     private List<ProductItem> productItemIdList;
 
 
     public Product() {
+        this.productItemIdList = new ArrayList<>();
     }
 
     public int getId() {
@@ -39,6 +41,9 @@ public class Product implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+        for (ProductItem item: productItemIdList) {
+            item.setProductId(this.id);
+        }
     }
 
     public String getRestaurantId() {

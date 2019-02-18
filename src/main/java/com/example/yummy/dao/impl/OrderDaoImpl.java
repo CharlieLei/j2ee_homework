@@ -18,7 +18,10 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public boolean add(Order order) {
-        return baseDao.save(order);
+        Order newOrder = new Order();
+        baseDao.save(newOrder);
+        order.setId(newOrder.getId());
+        return baseDao.update(order);
     }
 
     @Override

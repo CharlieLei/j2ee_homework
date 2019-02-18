@@ -28,10 +28,24 @@ public class Order implements Serializable {
     @Column(name = "fulfillingOrderTime")
     private Timestamp fulfillingOrderTime;//完成订单的时间
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "longitude", column = @Column(name = "senderLongitude")),
+            @AttributeOverride(name = "latitude", column = @Column(name = "senderLatitude")),
+            @AttributeOverride(name = "name", column = @Column(name = "senderAddrName"))
+    })
     private Address senderAddr;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "longitude", column = @Column(name = "receiverLongitude")),
+            @AttributeOverride(name = "latitude", column = @Column(name = "receiverLatitude")),
+            @AttributeOverride(name = "name", column = @Column(name = "receiverAddrName"))
+    })
     private Address receiverAddr;
 
-//    private List<Product> productList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    private List<OrderItem> orderItemList;
 
     @Column(name = "totalAmount")
     private double totalAmount;//总金额
@@ -49,6 +63,9 @@ public class Order implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+        for (OrderItem item: orderItemList) {
+            item.setOrderId(this.id);
+        }
     }
 
     public String getMemberId() {
@@ -121,5 +138,13 @@ public class Order implements Serializable {
 
     public void setState(OrderState state) {
         this.state = state;
+    }
+
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
     }
 }

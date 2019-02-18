@@ -15,6 +15,10 @@ public class ProductItem implements Serializable {
     @Column(name = "itemId")
     private int itemId;
 
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "itemId", referencedColumnName = "productId")
+//    private Product itemProduct;
+
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "productId")
 //    private Product productBelong;
@@ -37,4 +41,12 @@ public class ProductItem implements Serializable {
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
+
+//    public Product getItemProduct() {
+//        return itemProduct;
+//    }
+//
+//    public void setItemProduct(Product itemProduct) {
+//        this.itemProduct = itemProduct;
+//    }
 }

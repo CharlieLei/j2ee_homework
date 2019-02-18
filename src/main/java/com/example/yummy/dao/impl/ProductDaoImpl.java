@@ -20,12 +20,7 @@ public class ProductDaoImpl implements ProductDao {
     public boolean add(Product product) {
         Product newProduct = new Product();
         baseDao.save(newProduct);
-
         product.setId(newProduct.getId());
-        for (ProductItem item: product.getProductItemIdList()) {
-            item.setProductId(product.getId());
-            baseDao.save(item);
-        }
         return baseDao.update(product);
     }
 
