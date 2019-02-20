@@ -4,6 +4,7 @@ import com.example.yummy.dao.BaseDao;
 import com.example.yummy.dao.RestaurantDao;
 import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantInfoChange;
 import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
@@ -25,7 +26,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
         Transaction transaction = session.beginTransaction();
 
         TypedQuery<Restaurant> query = session.createQuery(
-                "select r from Restaurant r where r.restaurantId = ?1 and r.password = ?2",
+                "select r from Restaurant r where r.id = ?1 and r.password = ?2",
                 Restaurant.class
         );
         query.setParameter(1, restaurantId);
@@ -55,16 +56,6 @@ public class RestaurantDaoImpl implements RestaurantDao {
         transaction.commit();
 
         return restaurant;
-    }
-
-    @Override
-    public List<Restaurant> getAllInfoChanges() {
-        return null;
-    }
-
-    @Override
-    public boolean setInfoChangeSettled(String restaurantId) {
-        return false;
     }
 
     @Override

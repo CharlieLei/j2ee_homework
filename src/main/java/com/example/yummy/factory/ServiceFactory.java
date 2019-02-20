@@ -3,10 +3,7 @@ package com.example.yummy.factory;
 import com.example.yummy.controller.ExamineInfoChangeController;
 import com.example.yummy.service.examineInfoChange.ExamineInfoChangeService;
 import com.example.yummy.service.examineInfoChange.ExamineInfoChangeServiceImpl;
-import com.example.yummy.service.manager.ManagerAccountService;
-import com.example.yummy.service.manager.ManagerAccountServiceImpl;
-import com.example.yummy.service.manager.ManagerStatisticsService;
-import com.example.yummy.service.manager.ManagerStatisticsServiceImpl;
+import com.example.yummy.service.manager.*;
 import com.example.yummy.service.member.*;
 import com.example.yummy.service.order.OrderService;
 import com.example.yummy.service.order.OrderServiceImpl;
@@ -41,6 +38,10 @@ public class ServiceFactory {
 
     public static ManagerAccountService getManagerAccountService() {
         return new ManagerAccountServiceImpl();
+    }
+
+    public static ManagerService getManagerService() {
+        return new ManagerServiceImpl();
     }
 
     public static ManagerStatisticsService getManagerStatisticsService() {

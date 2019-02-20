@@ -30,8 +30,8 @@ public class YummyBillSettler {
             Restaurant restaurant = restaurantDao.get(order.getRestaurantId());
 
             double actualAmount = order.getTotalAmount() - order.getRefund();
-            restaurant.getRestaurantInfo().setBalance(
-                    restaurant.getRestaurantInfo().getBalance() + actualAmount * DISCOUNT
+            restaurant.setBalance(
+                    restaurant.getBalance() + actualAmount * DISCOUNT
             );
             restaurantDao.modify(restaurant);
 

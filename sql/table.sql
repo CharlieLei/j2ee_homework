@@ -33,13 +33,16 @@ primary key (restaurantId)
 );
 
 create table if not exists restaurantInfoChanges(
+id int auto_increment,
 restaurantId char(7),
 restaurantName varchar(10),
 longitude double,
 latitude double,
 addrName varchar(100),
 restaurantType int,
-primary key (restaurantId)
+isExamined boolean,
+isApproved boolean,
+primary key (id)
 );
 
 create table if not exists managers(

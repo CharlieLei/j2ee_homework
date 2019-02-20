@@ -17,6 +17,10 @@ public class DaoFactory {
         return new RestaurantDaoImpl();
     }
 
+    public static RestaurantInfoChangeDao getRestaurantInfoChangeDao() {
+        return new RestaurantInfoChangeDaoImpl();
+    }
+
     public static ManagerDao getManagerDao() {
         return new ManagerDaoImpl();
     }

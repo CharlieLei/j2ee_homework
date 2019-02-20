@@ -17,7 +17,7 @@ public class ManagerDaoImpl implements ManagerDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         TypedQuery<Manager> query = session.createQuery(
-                "select m from Manager m where m.managerId = ?1 and m.password = ?2",
+                "select m from Manager m where m.id = ?1 and m.password = ?2",
                 Manager.class
         );
         query.setParameter(1, managerId);

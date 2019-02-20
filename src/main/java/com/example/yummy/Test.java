@@ -1,6 +1,8 @@
 package com.example.yummy;
 
 
+import com.example.yummy.dao.RestaurantDao;
+import com.example.yummy.dao.impl.RestaurantDaoImpl;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberDeliveryAddress;
@@ -9,6 +11,7 @@ import com.example.yummy.model.order.OrderItem;
 import com.example.yummy.model.order.OrderState;
 import com.example.yummy.model.product.Product;
 import com.example.yummy.model.product.ProductItem;
+import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.member.MemberAccountServiceImpl;
 import com.example.yummy.service.order.OrderService;
@@ -21,43 +24,11 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        OrderService service = new OrderServiceImpl();
+        RestaurantDao dao = new RestaurantDaoImpl();
 
-        Order order = new Order();
-        order.setMemberId("123456");
-        order.setRestaurantId("abc123");
+        Restaurant restaurant = dao.get("kkk");
 
-        Address senderAddr = new Address();
-        senderAddr.setLongitude(98);
-        senderAddr.setLatitude(132);
-        senderAddr.setAddrName("sender");
-
-        Address receiverAddr = new Address();
-        receiverAddr.setLongitude(-123);
-        receiverAddr.setLatitude(83);
-        receiverAddr.setAddrName("receiver");
-
-        order.setSenderAddr(senderAddr);
-        order.setReceiverAddr(receiverAddr);
-
-        List<OrderItem> list = new ArrayList<>();
-        OrderItem item = new OrderItem();
-        item.setProductId(2);
-        list.add(item);
-
-        item = new OrderItem();
-        item.setProductId(3);
-        list.add(item);
-
-        order.setOrderItemList(list);
-        order.setState(OrderState.PAYING);
-
-        service.place(order);
-
-        while (true) {
-
-        }
-
+        System.out.println(restaurant);
 //        ProductService service = new ProductServiceImpl();
 //
 //        Product product = new Product();
