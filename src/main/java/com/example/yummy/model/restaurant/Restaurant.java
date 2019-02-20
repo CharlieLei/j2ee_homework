@@ -14,23 +14,12 @@ public class Restaurant implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "restaurantName")
-    private String name;
+    @Embedded
+    private RestaurantInfo restaurantInfo;
     @Embedded
     private Address address;
-    @Column(name = "balance")
-    private double balance;
-    @Column(name = "restaurantType")
-    @Enumerated(EnumType.ORDINAL)
-    private RestaurantType restaurantType;
 
     public Restaurant() {
-    }
-
-    public Restaurant(String password, String name, RestaurantType type) {
-        this.password = password;
-        this.name = name;
-        this.restaurantType = type;
     }
 
     public String getId() {
@@ -49,35 +38,19 @@ public class Restaurant implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public RestaurantType getRestaurantType() {
-        return restaurantType;
-    }
-
-    public void setRestaurantType(RestaurantType type) {
-        this.restaurantType = type;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
     public Address getAddress() {
         return address;
     }
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public RestaurantInfo getRestaurantInfo() {
+        return restaurantInfo;
+    }
+
+    public void setRestaurantInfo(RestaurantInfo restaurantInfo) {
+        this.restaurantInfo = restaurantInfo;
     }
 }

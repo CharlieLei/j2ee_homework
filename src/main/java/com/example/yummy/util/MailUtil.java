@@ -45,8 +45,8 @@ public class MailUtil implements Runnable {
             // 2.3设置邮件主题
             message.setSubject("账号激活");
             // 2.4设置邮件内容
-            String url = "http://localhost:8081/register/activateMember?memberId=" + memberId +
-                    "&code=" + code;
+            String url = "http://localhost:8080/register/activateMember/" + memberId +
+                    "?code=" + code;
             String content = "<html><head></head><body><h1>这是一封激活邮件,激活请点击以下链接</h1>" +
                     "<h3><a href='" + url + "'>"
                     + url +

@@ -33,7 +33,7 @@ class OrderPaymentDealer {
             orderDao.modify(order);
 
             double totalAmount = order.getTotalAmount();
-            member.setBalance(member.getBalance() - totalAmount);
+            member.getMemberInfo().setBalance(member.getMemberInfo().getBalance() - totalAmount);
             memberDao.modify(member);
 
             YummyBill yummyBill = new YummyBill();
@@ -61,7 +61,7 @@ class OrderPaymentDealer {
         order.setState(OrderState.CANCELLED);
         orderDao.modify(order);
 
-        member.setBalance(member.getBalance() + totalAmount);
+        member.getMemberInfo().setBalance(member.getMemberInfo().getBalance() + totalAmount);
         return memberDao.modify(member);
     }
 

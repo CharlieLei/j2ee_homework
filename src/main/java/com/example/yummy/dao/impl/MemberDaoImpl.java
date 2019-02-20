@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,7 +24,7 @@ public class MemberDaoImpl implements MemberDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         TypedQuery<Member> query = session.createQuery(
-                "select m from Member m where m.memberId = ?1 and m.password = ?2 and m.state = ?3",
+                "select m from Member m where m.id = ?1 and m.password = ?2 and m.state = ?3",
                 Member.class
         );
         query.setParameter(1, memberId);
@@ -82,6 +83,10 @@ public class MemberDaoImpl implements MemberDao {
         Transaction transaction = session.beginTransaction();
         Member member = session.get(Member.class, memberId);
         transaction.commit();
+
+//        if (member.getDeliveryAddrList() == null) {
+//            member.setDeliveryAddrList(new ArrayList<>());
+//        }
 
         return member;
     }

@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -86,8 +87,15 @@ public class RestaurantDaoImpl implements RestaurantDao {
             query.setParameter(1, type);
             list = query.getResultList();
         }
-
         transaction.commit();
-        return list;
+
+        List<Restaurant> newList = new ArrayList<>();
+        for (Restaurant restaurant: list) {
+            if (restaurant.getAddress() != null) {
+                newList.add(restaurant);
+            }
+        }
+
+        return newList;
     }
 }

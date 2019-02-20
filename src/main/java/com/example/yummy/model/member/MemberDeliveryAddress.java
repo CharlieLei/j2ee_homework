@@ -37,11 +37,11 @@ public class MemberDeliveryAddress {
     }
 
     public String getAddrName() {
-        return address.getName();
+        return address.getAddrName();
     }
 
     public void setAddrName(String addrName) {
-        address.setName(addrName);
+        address.setAddrName(addrName);
     }
 
     public double getLongitude() {
@@ -58,5 +58,13 @@ public class MemberDeliveryAddress {
 
     public void setLatitude(double latitude) {
         address.setLatitude(latitude);
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

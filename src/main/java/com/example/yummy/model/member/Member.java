@@ -1,6 +1,8 @@
 package com.example.yummy.model.member;
 
 import com.example.yummy.model.Address;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,21 +21,12 @@ public class Member implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "memberName")
-    private String name;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "phone")
-    private String phone;
+    @Embedded
+    private MemberInfo memberInfo;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "memberId")
     private List<MemberDeliveryAddress> deliveryAddrList;
-
-    @Column(name = "memberLevel")
-    private MemberLevel level;
-    @Column(name = "balance")
-    private double balance;
 
     @Column(name = "state")
     private MemberState state;
@@ -42,17 +35,6 @@ public class Member implements Serializable {
 
     public Member() {
 
-    }
-
-    public Member(String id, String password, String email, String name, String phone) {
-        this.id = id;
-        this.password = password;
-        this.email = email;
-        this.name = name;
-        this.phone = phone;
-
-        this.level = MemberLevel.COPPER;
-        this.state = MemberState.UNVERIFIED;
     }
 
     public String getId() {
@@ -71,28 +53,12 @@ public class Member implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public MemberInfo getMemberInfo() {
+        return memberInfo;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setMemberInfo(MemberInfo memberInfo) {
+        this.memberInfo = memberInfo;
     }
 
     public List<MemberDeliveryAddress> getDeliveryAddrList() {
@@ -101,22 +67,6 @@ public class Member implements Serializable {
 
     public void setDeliveryAddrList(List<MemberDeliveryAddress> deliveryAddrList) {
         this.deliveryAddrList = deliveryAddrList;
-    }
-
-    public MemberLevel getLevel() {
-        return level;
-    }
-
-    public void setLevel(MemberLevel level) {
-        this.level = level;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
     }
 
     public MemberState getState() {

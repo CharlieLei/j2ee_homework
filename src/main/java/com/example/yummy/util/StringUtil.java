@@ -11,7 +11,7 @@ public class StringUtil {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
-    public static String generateMemberId() {
+    public static String generateRestaurantId() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 7);
     }
 }
