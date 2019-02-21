@@ -72,7 +72,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
             list = query.getResultList();
         }else {
             TypedQuery<Restaurant> query = session.createQuery(
-                    "select r from Restaurant r where r.restaurantType = ?1",
+                    "select r from Restaurant r where r.restaurantInfo.restaurantType = ?1",
                     Restaurant.class
             );
             query.setParameter(1, type);

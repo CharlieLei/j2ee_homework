@@ -21,7 +21,14 @@ public class ExamineInfoChangeController {
     }
 
     @RequestMapping(value = "/approveRestaurantInfoChange", method = RequestMethod.GET)
-    public boolean approveRestaurantInfoChange(@RequestParam(value = "restaurantId") String restaurantId) {
-        return examineInfoChangeService.approveRestaurantInfoChange(restaurantId);
+    public boolean approveRestaurantInfoChange(@RequestParam(value = "id") int id,
+                                               @RequestParam(value = "restaurantId") String restaurantId) {
+        return examineInfoChangeService.approveRestaurantInfoChange(id, restaurantId);
+    }
+
+    @RequestMapping(value = "/disapproveRestaurantInfoChange", method = RequestMethod.GET)
+    public boolean disapproveRestaurantInfoChange(@RequestParam(value = "id") int id,
+                                                  @RequestParam(value = "restaurantId") String restaurantId) {
+        return examineInfoChangeService.disapproveRestaurantInfoChange(id, restaurantId);
     }
 }

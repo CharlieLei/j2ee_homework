@@ -45,7 +45,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> getAllDeliveringOrder(String memberId) {
+    public List<Order> getAllOrder(String memberId, OrderState orderState) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
@@ -54,7 +54,7 @@ public class OrderDaoImpl implements OrderDao {
                 Order.class
         );
         query.setParameter(1, memberId);
-        query.setParameter(2, OrderState.DELIVERING);
+        query.setParameter(2, orderState);
 
         List<Order> list = query.getResultList();
         transaction.commit();

@@ -9,6 +9,8 @@ public interface RestaurantInfoChangeDao {
 
     public boolean modify(RestaurantInfoChange restaurantInfoChange);
 
+    public RestaurantInfoChange get(int id);
+
     public RestaurantInfoChange getUnexamined(String restaurantId);
 
     public List<RestaurantInfoChange> getAllUnexaminedInfoChanges();

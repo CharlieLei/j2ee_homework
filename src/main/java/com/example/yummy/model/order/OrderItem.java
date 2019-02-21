@@ -15,6 +15,8 @@ public class OrderItem {
     private int productId;
     @Column(name = "itemAmount")
     private int itemAmount;
+    @Column(name = "itemPrice")
+    private double itemPrice;
 
     public int getOrderId() {
         return orderId;
@@ -38,5 +40,13 @@ public class OrderItem {
 
     public void setItemAmount(int itemAmount) {
         this.itemAmount = itemAmount;
+    }
+
+    public double getItemPrice() {
+        return itemPrice;
+    }
+
+    public void setItemPrice(double itemPrice) {
+        this.itemPrice = itemPrice;
     }
 }

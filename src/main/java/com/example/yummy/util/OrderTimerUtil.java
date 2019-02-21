@@ -5,10 +5,12 @@ import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.order.OrderState;
 
+import java.sql.Timestamp;
+
 public class OrderTimerUtil implements Runnable {
 
     private OrderDao orderDao = DaoFactory.getOrderDao();
-    private static final long waitingMillis = 15 * 60 * 1000;
+    private static final long waitingMillis = 2 * 60 * 1000;//15 * 60 * 1000;
     private static final long intervalMillis = 1000;
 
     private int orderId;
@@ -19,11 +21,14 @@ public class OrderTimerUtil implements Runnable {
 
     @Override
     public void run() {
+        Order order = orderDao.get(orderId);
+        order.setPayDeadline(new Timestamp(order.getPlacingOrderTime().getTime() + waitingMillis));
+        orderDao.modify(order);
+
         long startTime = System.currentTimeMillis();
         long currentTime = System.currentTimeMillis();
         while (currentTime - startTime <= waitingMillis) {
             System.out.println("timing:" + orderId + " | times:" + currentTime);
-            Order order = orderDao.get(orderId);
             if (order.getState() != OrderState.PAYING){
                 return;
             }
@@ -37,7 +42,7 @@ public class OrderTimerUtil implements Runnable {
             currentTime = System.currentTimeMillis();
         }
 
-        Order order = orderDao.get(orderId);
         order.setState(OrderState.OVERDUE);
+        orderDao.modify(order);
     }
 }

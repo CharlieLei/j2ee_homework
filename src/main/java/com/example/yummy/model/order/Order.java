@@ -25,6 +25,8 @@ public class Order implements Serializable {
 
     @Column(name = "placingOrderTime")
     private Timestamp placingOrderTime;//下订单的时间
+    @Column(name = "payDeadline")
+    private Timestamp payDeadline;//付款时间
     @Column(name = "fulfillingOrderTime")
     private Timestamp fulfillingOrderTime;//完成订单的时间
 
@@ -43,7 +45,7 @@ public class Order implements Serializable {
     })
     private Address receiverAddr;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
     private List<OrderItem> orderItemList;
 
@@ -90,6 +92,14 @@ public class Order implements Serializable {
 
     public void setPlacingOrderTime(Timestamp placingOrderTime) {
         this.placingOrderTime = placingOrderTime;
+    }
+
+    public Timestamp getPayDeadline() {
+        return payDeadline;
+    }
+
+    public void setPayDeadline(Timestamp payDeadline) {
+        this.payDeadline = payDeadline;
     }
 
     public Timestamp getFulfillingOrderTime() {

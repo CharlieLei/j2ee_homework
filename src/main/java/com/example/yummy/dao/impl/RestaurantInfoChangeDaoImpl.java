@@ -26,6 +26,16 @@ public class RestaurantInfoChangeDaoImpl implements RestaurantInfoChangeDao {
     }
 
     @Override
+    public RestaurantInfoChange get(int id) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+        RestaurantInfoChange restaurantInfoChange = session.get(RestaurantInfoChange.class, id);
+        transaction.commit();
+
+        return restaurantInfoChange;
+    }
+
+    @Override
     public RestaurantInfoChange getUnexamined(String restaurantId) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();

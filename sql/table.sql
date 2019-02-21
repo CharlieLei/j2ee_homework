@@ -73,6 +73,7 @@ memberId varchar(10),
 restaurantId char(7),
 
 placingOrderTime timestamp,
+payDeadline timestamp,
 fulfillingOrderTime timestamp ,
 
 senderLongitude double ,
@@ -94,6 +95,7 @@ id int auto_increment,
 orderId int,
 productId int,
 itemAmount int,
+itemPrice double,
 primary key (id)
 );
 
