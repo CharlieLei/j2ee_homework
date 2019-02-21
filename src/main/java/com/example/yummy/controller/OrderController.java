@@ -70,13 +70,13 @@ public class OrderController {
         return orderService.getAllOrders(memberId, OrderState.DELIVERING);
     }
 
-    @RequestMapping(value = "/getAllCompletedOrdersOfThisMember", method = RequestMethod.GET)
-    public List<OrderVO> getAllCompletedOrdersOfThisMember(@RequestParam(value = "memberId")String memberId) {
-        return orderService.getAllOrders(memberId, OrderState.COMPLETED);
+    @RequestMapping(value = "/getAllNotActiveOrdersOfThisMember", method = RequestMethod.GET)
+    public List<OrderVO> getAllNotActiveOrdersOfThisMember(@RequestParam(value = "memberId")String memberId) {
+        return orderService.getAllOrders(memberId, OrderState.NOT_ACTIVE);
     }
 
-    @RequestMapping(value = "/getAllOrdersOfThisRestaurant", method = RequestMethod.GET)
-    public List<OrderVO> getAllOrdersOfThisRestaurant(@RequestParam(value = "restaurantId") String restaurantId) {
-        return orderService.getAllOrdersOfThisRestaurant(restaurantId);
+    @RequestMapping(value = "/getAllNotActiveOrdersOfThisRestaurant", method = RequestMethod.GET)
+    public List<OrderVO> getAllNotActiveOrdersOfThisRestaurant(@RequestParam(value = "restaurantId") String restaurantId) {
+        return orderService.getAllOrdersOfThisRestaurant(restaurantId, OrderState.NOT_ACTIVE);
     }
 }

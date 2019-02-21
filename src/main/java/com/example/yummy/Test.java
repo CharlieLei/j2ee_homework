@@ -24,11 +24,11 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        RestaurantDao dao = new RestaurantDaoImpl();
-
-        Restaurant restaurant = dao.get("kkk");
-
-        System.out.println(restaurant);
+//        RestaurantDao dao = new RestaurantDaoImpl();
+//
+//        Restaurant restaurant = dao.get("kkk");
+//
+//        System.out.println(restaurant);
 //        ProductService service = new ProductServiceImpl();
 //
 //        Product product = new Product();

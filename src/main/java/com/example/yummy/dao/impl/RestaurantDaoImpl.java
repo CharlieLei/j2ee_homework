@@ -34,6 +34,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
         List<Restaurant> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list.size() == 1;
     }
@@ -54,6 +55,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
         Transaction transaction = session.beginTransaction();
         Restaurant restaurant = session.get(Restaurant.class, restaurantId);
         transaction.commit();
+        session.close();
 
         return restaurant;
     }
@@ -79,6 +81,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
             list = query.getResultList();
         }
         transaction.commit();
+        session.close();
 
         List<Restaurant> newList = new ArrayList<>();
         for (Restaurant restaurant: list) {

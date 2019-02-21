@@ -31,6 +31,7 @@ public class RestaurantInfoChangeDaoImpl implements RestaurantInfoChangeDao {
         Transaction transaction = session.beginTransaction();
         RestaurantInfoChange restaurantInfoChange = session.get(RestaurantInfoChange.class, id);
         transaction.commit();
+        session.close();
 
         return restaurantInfoChange;
     }
@@ -48,6 +49,7 @@ public class RestaurantInfoChangeDaoImpl implements RestaurantInfoChangeDao {
         List<RestaurantInfoChange> list = query.getResultList();
 
         transaction.commit();
+        session.close();
 
         if (list.size() == 1) {
             return list.get(0);
@@ -68,6 +70,7 @@ public class RestaurantInfoChangeDaoImpl implements RestaurantInfoChangeDao {
         List<RestaurantInfoChange> list = query.getResultList();
 
         transaction.commit();
+        session.close();
 
         return list;
     }

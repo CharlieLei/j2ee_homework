@@ -40,6 +40,7 @@ public class OrderDaoImpl implements OrderDao {
         Transaction transaction = session.beginTransaction();
         Order order = session.get(Order.class, orderId);
         transaction.commit();
+        session.close();
 
         return order;
     }
@@ -49,32 +50,56 @@ public class OrderDaoImpl implements OrderDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        TypedQuery<Order> query = session.createQuery(
-                "select o from Order o where o.memberId = ?1 and o.state = ?2",
-                Order.class
-        );
-        query.setParameter(1, memberId);
-        query.setParameter(2, orderState);
+        TypedQuery<Order> query;
+        if (orderState == OrderState.NOT_ACTIVE){
+            query = session.createQuery(
+                    "select o from Order o where o.memberId = ?1 and o.state <> ?2 and o.state <> ?3",
+                    Order.class
+            );
+            query.setParameter(1, memberId);
+            query.setParameter(2, OrderState.PAYING);
+            query.setParameter(3, OrderState.DELIVERING);
+        }else {
+            query = session.createQuery(
+                    "select o from Order o where o.memberId = ?1 and o.state = ?2",
+                    Order.class
+            );
+            query.setParameter(1, memberId);
+            query.setParameter(2, orderState);
+        }
 
         List<Order> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list;
     }
 
     @Override
-    public List<Order> getAllOrdersOfThisRestaurant(String restaurantId) {
+    public List<Order> getAllOrdersOfThisRestaurant(String restaurantId, OrderState orderState) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
-        TypedQuery<Order> query = session.createQuery(
-                "select o from Order o where o.restaurantId = ?1",
-                Order.class
-        );
-        query.setParameter(1, restaurantId);
-
+        TypedQuery<Order> query;
+        if (orderState == OrderState.NOT_ACTIVE) {
+            query = session.createQuery(
+                    "select o from Order o where o.restaurantId = ?1 and o.state <> ?2 and o.state <> ?3",
+                    Order.class
+            );
+            query.setParameter(1, restaurantId);
+            query.setParameter(2, OrderState.PAYING);
+            query.setParameter(3, OrderState.DELIVERING);
+        }else {
+            query = session.createQuery(
+                    "select o from Order o where o.restaurantId = ?1 and o.state = ?2",
+                    Order.class
+            );
+            query.setParameter(1, restaurantId);
+            query.setParameter(2, orderState);
+        }
         List<Order> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list;
     }

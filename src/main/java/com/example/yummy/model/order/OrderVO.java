@@ -33,43 +33,7 @@ public class OrderVO implements Serializable {
 
     private double totalAmount;//总金额
 
-    public OrderVO(Order order) {
-        this.id = order.getId();
-        this.memberId = order.getMemberId();
-        this.restaurantId = order.getRestaurantId();
-
-        this.placingOrderTime = order.getPlacingOrderTime();
-        this.payDeadline = order.getPayDeadline();
-        this.fulfillingOrderTime = order.getFulfillingOrderTime();
-
-        this.senderAddr = order.getSenderAddr();
-        this.receiverAddr = order.getReceiverAddr();
-
-        this.totalAmount = order.getTotalAmount();
-
-        ProductDao productDao = DaoFactory.getProductDao();
-        RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
-        MemberDao memberDao = DaoFactory.getMemberDao();
-
-        Member member = memberDao.get(order.getMemberId());
-        this.memberName = member.getMemberInfo().getName();
-
-        Restaurant restaurant = restaurantDao.get(order.getRestaurantId());
-        this.restaurantName = restaurant.getRestaurantInfo().getName();
-
-        List<ProductVO> productVOList = new ArrayList<>();
-        for (OrderItem orderItem: order.getOrderItemList()) {
-            Product product = productDao.get(orderItem.getProductId());
-
-            ProductVO productVO = new ProductVO();
-            productVO.setName(product.getName());
-
-            productVO.setPrice(orderItem.getItemPrice());
-            productVO.setQuantity(orderItem.getItemAmount());
-
-            productVOList.add(productVO);
-        }
-        this.productList = productVOList;
+    public OrderVO() {
     }
 
     public int getId() {

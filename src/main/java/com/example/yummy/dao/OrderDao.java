@@ -17,5 +17,5 @@ public interface OrderDao {
 
     public List<Order> getAllOrder(String memberId, OrderState orderState);
 
-    public List<Order> getAllOrdersOfThisRestaurant(String restaurantId);
+    public List<Order> getAllOrdersOfThisRestaurant(String restaurantId, OrderState orderState);
 }

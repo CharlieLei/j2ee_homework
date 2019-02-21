@@ -23,5 +23,5 @@ public interface OrderService {
 
     public List<OrderVO> getAllOrders(String memberId, OrderState orderState);
 
-    public List<OrderVO> getAllOrdersOfThisRestaurant(String restaurantId);
+    public List<OrderVO> getAllOrdersOfThisRestaurant(String restaurantId, OrderState orderState);
 }

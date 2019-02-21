@@ -36,6 +36,7 @@ public class YummyDaoImpl implements YummyDao {
         );
         List<YummyBill> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list;
     }

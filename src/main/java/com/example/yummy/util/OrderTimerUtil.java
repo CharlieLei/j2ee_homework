@@ -28,10 +28,7 @@ public class OrderTimerUtil implements Runnable {
         long startTime = System.currentTimeMillis();
         long currentTime = System.currentTimeMillis();
         while (currentTime - startTime <= waitingMillis) {
-            System.out.println("timing:" + orderId + " | times:" + currentTime);
-            if (order.getState() != OrderState.PAYING){
-                return;
-            }
+            System.out.println("timing:" + orderId + " | times:" + currentTime + " | remain:" + (currentTime - startTime));
 
             try {
                 Thread.sleep(intervalMillis);
@@ -42,7 +39,10 @@ public class OrderTimerUtil implements Runnable {
             currentTime = System.currentTimeMillis();
         }
 
-        order.setState(OrderState.OVERDUE);
-        orderDao.modify(order);
+        order = orderDao.get(orderId);
+        if (order.getState() == OrderState.PAYING){
+            order.setState(OrderState.OVERDUE);
+            orderDao.modify(order);
+        }
     }
 }

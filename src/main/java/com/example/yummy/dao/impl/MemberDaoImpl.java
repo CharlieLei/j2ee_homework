@@ -33,6 +33,7 @@ public class MemberDaoImpl implements MemberDao {
 
         List<Member> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list.size() == 1;
     }
@@ -52,9 +53,11 @@ public class MemberDaoImpl implements MemberDao {
             member.setState(MemberState.VALID);
             session.merge(member);
             transaction.commit();
+            session.close();
             return true;
         }else {
             transaction.commit();
+            session.close();
             return false;
         }
     }
@@ -69,6 +72,7 @@ public class MemberDaoImpl implements MemberDao {
         session.merge(member);
 
         transaction.commit();
+        session.close();
         return true;
     }
 
@@ -83,6 +87,7 @@ public class MemberDaoImpl implements MemberDao {
         Transaction transaction = session.beginTransaction();
         Member member = session.get(Member.class, memberId);
         transaction.commit();
+        session.close();
 
 //        if (member.getDeliveryAddrList() == null) {
 //            member.setDeliveryAddrList(new ArrayList<>());

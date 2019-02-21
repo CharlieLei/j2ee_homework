@@ -12,6 +12,7 @@ import java.util.List;
 
 @Repository
 public class ManagerDaoImpl implements ManagerDao {
+
     @Override
     public boolean isLoginInfoCorrect(String managerId, String password) {
         Session session = HibernateUtil.getSession();
@@ -25,6 +26,7 @@ public class ManagerDaoImpl implements ManagerDao {
 
         List<Manager> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list.size() == 1;
     }
@@ -35,6 +37,7 @@ public class ManagerDaoImpl implements ManagerDao {
         Transaction transaction = session.beginTransaction();
         Manager manager = session.get(Manager.class, managerId);
         transaction.commit();
+        session.close();
 
         return manager;
     }

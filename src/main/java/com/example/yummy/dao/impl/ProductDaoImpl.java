@@ -40,6 +40,7 @@ public class ProductDaoImpl implements ProductDao {
         Transaction transaction = session.beginTransaction();
         Product product = session.get(Product.class, productId);
         transaction.commit();
+        session.close();
         return product;
     }
 
@@ -54,6 +55,7 @@ public class ProductDaoImpl implements ProductDao {
         query.setParameter(1, restaurantId);
         List<Product> list = query.getResultList();
         transaction.commit();
+        session.close();
 
         return list;
     }
