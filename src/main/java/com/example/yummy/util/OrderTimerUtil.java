@@ -41,6 +41,7 @@ public class OrderTimerUtil implements Runnable {
 
         order = orderDao.get(orderId);
         if (order.getState() == OrderState.PAYING){
+            order.setRefund(order.getTotalAmount());
             order.setState(OrderState.OVERDUE);
             orderDao.modify(order);
         }

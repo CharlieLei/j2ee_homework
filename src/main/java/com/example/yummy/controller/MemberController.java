@@ -4,6 +4,7 @@ import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberInfo;
+import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.model.statistics.MemberStatistics;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.member.MemberService;
@@ -11,6 +12,8 @@ import com.example.yummy.service.member.MemberStatisticsService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 
 
 @CrossOrigin
@@ -51,7 +54,13 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
-    public MemberStatistics getStatistics(@RequestParam(value = "memberId") String memberId) {
-        return memberStatisticsService.get();
+    public MemberStatistics getStatistics(@RequestParam(value = "memberId") String memberId,
+                                          @RequestParam(value = "startTime") Timestamp startTime,
+                                          @RequestParam(value = "endTime") Timestamp endTime,
+                                          @RequestParam(value = "lowerAmount") double lowerAmount,
+                                          @RequestParam(value = "upperAmount") double upperAmount,
+                                          @RequestParam(value = "restaurantType") String restaurantTypeStr) {
+        RestaurantType restaurantType = RestaurantType.getEnum(restaurantTypeStr);
+        return memberStatisticsService.get(memberId, startTime, endTime, lowerAmount, upperAmount, restaurantType);
     }
 }

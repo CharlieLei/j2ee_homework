@@ -11,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,5 +95,21 @@ public class MemberDaoImpl implements MemberDao {
 //        }
 
         return member;
+    }
+
+    @Override
+    public List<Member> getAll() {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        TypedQuery<Member> query = session.createQuery(
+                "select m from Member m",
+                Member.class
+        );
+
+        List<Member> memberList = query.getResultList();
+        transaction.commit();
+
+        return memberList;
     }
 }

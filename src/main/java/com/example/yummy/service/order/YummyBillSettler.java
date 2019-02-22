@@ -21,8 +21,10 @@ public class YummyBillSettler {
 
     private static final double DISCOUNT = 0.9;
 
-    @Scheduled(cron = "0 0 0 1 * ?")
+    @Scheduled(cron = "0 * * * * ?")
     public void settleBills() {
+        System.out.println("********************settling bills************************");
+
         List<YummyBill> list = yummyDao.getAllUnsettledBills();
 
         for (YummyBill yummyBill: list) {
@@ -35,6 +37,7 @@ public class YummyBillSettler {
             );
             restaurantDao.modify(restaurant);
 
+            yummyBill.setSettleAmount(actualAmount * (1 - DISCOUNT));
             yummyBill.setSettled(true);
             yummyDao.modify(yummyBill);
         }

@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class YummyDaoImpl implements YummyDao {
@@ -34,6 +35,25 @@ public class YummyDaoImpl implements YummyDao {
                 "select y from YummyBill y where y.isSettled = false ",
                 YummyBill.class
         );
+        List<YummyBill> list = query.getResultList();
+        transaction.commit();
+        session.close();
+
+        return list;
+    }
+
+    @Override
+    public List<YummyBill> getAllSettledBills(Timestamp startTime, Timestamp endTime) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        TypedQuery<YummyBill> query = session.createQuery(
+                "select y from YummyBill y where y.isSettled = true and (y.tradingDate between ?1 and ?2)",
+                YummyBill.class
+        );
+        query.setParameter(1, startTime);
+        query.setParameter(2, endTime);
+
         List<YummyBill> list = query.getResultList();
         transaction.commit();
         session.close();

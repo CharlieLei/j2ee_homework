@@ -2,6 +2,7 @@ package com.example.yummy.dao;
 
 import com.example.yummy.model.yummyBill.YummyBill;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface YummyDao {
@@ -10,4 +11,6 @@ public interface YummyDao {
     public boolean modify(YummyBill yummyBill);
 
     public List<YummyBill> getAllUnsettledBills();
+
+    public List<YummyBill> getAllSettledBills(Timestamp startTime, Timestamp endTime);
 }

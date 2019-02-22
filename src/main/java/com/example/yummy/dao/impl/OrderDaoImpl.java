@@ -5,11 +5,13 @@ import com.example.yummy.dao.OrderDao;
 import com.example.yummy.factory.DaoFactory;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.order.OrderState;
+import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class OrderDaoImpl implements OrderDao {
@@ -76,6 +78,44 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getAllOrder(String memberId, Timestamp startTime, Timestamp endTime, double lowerAmount, double upperAmount, OrderState orderState) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        TypedQuery<Order> query;
+        if (orderState == null) {
+            query = session.createQuery(
+                    "select o from Order o " +
+                            "where o.memberId = ?1 and (o.placingOrderTime between ?2 and ?3) and" +
+                            "(o.totalAmount between ?4 and ?5)",
+                    Order.class
+            );
+            query.setParameter(1, memberId);
+            query.setParameter(2, startTime);
+            query.setParameter(3, endTime);
+            query.setParameter(4, lowerAmount);
+            query.setParameter(5, upperAmount);
+        }else {
+            query = session.createQuery(
+                    "select o from Order o where o.memberId = ?1 and (o.placingOrderTime between ?2 and ?3) and" +
+                            "(o.totalAmount between ?4 and ?5) and o.state = ?6",
+                    Order.class
+            );
+            query.setParameter(1, memberId);
+            query.setParameter(2, startTime);
+            query.setParameter(3, endTime);
+            query.setParameter(4, lowerAmount);
+            query.setParameter(5, upperAmount);
+            query.setParameter(6, orderState);
+        }
+        List<Order> list = query.getResultList();
+        transaction.commit();
+        session.close();
+
+        return list;
+    }
+
+    @Override
     public List<Order> getAllOrdersOfThisRestaurant(String restaurantId, OrderState orderState) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
@@ -96,6 +136,47 @@ public class OrderDaoImpl implements OrderDao {
             );
             query.setParameter(1, restaurantId);
             query.setParameter(2, orderState);
+        }
+        List<Order> list = query.getResultList();
+        transaction.commit();
+        session.close();
+
+        return list;
+    }
+
+    @Override
+    public List<Order> getAllOrdersOfThisRestaurant(String restaurantId,
+                                                    Timestamp startTime, Timestamp endTime,
+                                                    double lowerAmount, double upperAmount,
+                                                    OrderState orderState) {
+        Session session = HibernateUtil.getSession();
+        Transaction transaction = session.beginTransaction();
+
+        TypedQuery<Order> query;
+        if (orderState == null) {
+            query = session.createQuery(
+                    "select o from Order o " +
+                            "where o.restaurantId = ?1 and (o.placingOrderTime between ?2 and ?3) and " +
+                            "(o.totalAmount between ?4 and ?5)",
+                    Order.class
+            );
+            query.setParameter(1, restaurantId);
+            query.setParameter(2, startTime);
+            query.setParameter(3, endTime);
+            query.setParameter(4, lowerAmount);
+            query.setParameter(5, upperAmount);
+        }else {
+            query = session.createQuery(
+                    "select o from Order o where o.restaurantId = ?1 and (o.placingOrderTime between ?2 and ?3) and" +
+                            "(o.totalAmount between ?4 and ?5) and o.state = ?6",
+                    Order.class
+            );
+            query.setParameter(1, restaurantId);
+            query.setParameter(2, startTime);
+            query.setParameter(3, endTime);
+            query.setParameter(4, lowerAmount);
+            query.setParameter(5, upperAmount);
+            query.setParameter(6, orderState);
         }
         List<Order> list = query.getResultList();
         transaction.commit();

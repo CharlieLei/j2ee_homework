@@ -103,5 +103,6 @@ create table if not exists yummyBills(
 tradingDate timestamp ,
 orderId int ,
 isSettled boolean ,
+settleAmount double,
 primary key (tradingDate)
 );

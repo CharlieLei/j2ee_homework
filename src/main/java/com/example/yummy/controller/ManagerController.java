@@ -8,6 +8,8 @@ import com.example.yummy.service.manager.ManagerService;
 import com.example.yummy.service.manager.ManagerStatisticsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/manager")
@@ -22,7 +24,8 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)
-    public ManagerStatistics getStatistics() {
-        return managerStatisticsService.get();
+    public ManagerStatistics getStatistics(@RequestParam(value = "startTime") Timestamp startTime,
+                                           @RequestParam(value = "endTime") Timestamp endTime) {
+        return managerStatisticsService.get(startTime, endTime);
     }
 }

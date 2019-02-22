@@ -15,6 +15,8 @@ public class YummyBill implements Serializable {
     private Timestamp tradingDate;
     @Column(name = "orderId")
     private int orderId;
+    @Column(name = "settleAmount")
+    private double settleAmount;
     @Column(name = "isSettled")
     private boolean isSettled;
 
@@ -35,6 +37,14 @@ public class YummyBill implements Serializable {
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
+    }
+
+    public double getSettleAmount() {
+        return settleAmount;
+    }
+
+    public void setSettleAmount(double settleAmount) {
+        this.settleAmount = settleAmount;
     }
 
     public boolean isSettled() {

@@ -3,6 +3,8 @@ package com.example.yummy.dao;
 
 import com.example.yummy.model.member.Member;
 
+import java.util.List;
+
 public interface MemberDao {
 
     public boolean isLoginInfoCorrect(String memberId, String password);
@@ -24,4 +26,6 @@ public interface MemberDao {
     public boolean modify(Member member);
 
     public Member get(String memberId);
+
+    public List<Member> getAll();
 }
