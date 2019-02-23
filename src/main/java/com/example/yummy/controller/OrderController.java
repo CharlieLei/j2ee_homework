@@ -20,6 +20,11 @@ public class OrderController {
 
     private OrderService orderService = ServiceFactory.getOrderService();
 
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public OrderVO getOrder(@RequestParam(value = "orderId") int orderId) {
+        return orderService.get(orderId);
+    }
+
     @RequestMapping(value = "/place", method = RequestMethod.GET)
     public boolean placeOrder(@RequestParam(value = "memberId") String memberId,
                               @RequestParam(value = "restaurantId") String restaurantId,
@@ -38,16 +43,6 @@ public class OrderController {
         OrderItem[] orderItemList = gson.fromJson(orderItemListJson, OrderItem[].class);
 
         return orderService.place(memberId, restaurantId, senderAddr, receiverAddr, orderItemList, totalAmount);
-    }
-
-    @RequestMapping(value = "/pay", method = RequestMethod.GET)
-    public boolean payOrder(@RequestParam(value = "orderId") int orderId) {
-        return orderService.pay(orderId);
-    }
-
-    @RequestMapping(value = "/withdraw", method = RequestMethod.GET)
-    public boolean withdrawOrder(@RequestParam(value = "orderId") int orderId) {
-        return orderService.withdraw(orderId);
     }
 
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)

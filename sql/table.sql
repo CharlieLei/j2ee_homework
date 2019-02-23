@@ -106,3 +106,11 @@ isSettled boolean ,
 settleAmount double,
 primary key (tradingDate)
 );
+
+create table if not exists coupons(
+  couponId int auto_increment,
+  restaurantId char(7),
+  value double,
+  amount int,
+  primary key (couponId)
+);

@@ -36,4 +36,8 @@ public class DaoFactory {
     public static YummyDao getYummyDao() {
         return new YummyDaoImpl();
     }
+
+    public static CouponDao getCouponDao() {
+        return new CouponDaoImpl();
+    }
 }

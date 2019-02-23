@@ -29,6 +29,11 @@ public class OrderServiceImpl implements OrderService {
     private MemberDao memberDao = DaoFactory.getMemberDao();
 
     @Override
+    public OrderVO get(int orderId) {
+        return this.toOrderVo(orderDao.get(orderId));
+    }
+
+    @Override
     public boolean place(String memberId, String restaurantId,
                          Address senderAddr, Address receiverAddr,
                          OrderItem[] orderItemList, double totalAmount) {
@@ -55,22 +60,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean pay(int orderId) {
-        OrderPaymentDealer dealer = new OrderPaymentDealer();
-        return dealer.payOrder(orderId);
-    }
-
-    @Override
     public boolean cancel(int orderId) {
         Order order = orderDao.get(orderId);
         order.setState(OrderState.CANCELLED);
         return orderDao.modify(order);
-    }
-
-    @Override
-    public boolean withdraw(int orderId) {
-        OrderPaymentDealer dealer = new OrderPaymentDealer();
-        return dealer.withdrawOrder(orderId);
     }
 
     @Override

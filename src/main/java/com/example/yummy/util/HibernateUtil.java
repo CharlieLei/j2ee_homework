@@ -1,5 +1,6 @@
 package com.example.yummy.util;
 
+import com.example.yummy.model.coupon.Coupon;
 import com.example.yummy.model.manager.Manager;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberDeliveryAddress;
@@ -46,6 +47,8 @@ public class HibernateUtil {
 				config.addAnnotatedClass(ProductItem.class);
 
 				config.addAnnotatedClass(YummyBill.class);
+
+				config.addAnnotatedClass(Coupon.class);
 
 				serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 				sessionFactory = config.buildSessionFactory(serviceRegistry);

@@ -9,15 +9,14 @@ import com.example.yummy.model.order.OrderVO;
 import java.util.List;
 
 public interface OrderService {
+
+    public OrderVO get(int orderId);
+
     public boolean place(String memberId, String restaurantId,
                          Address senderAddr, Address receiverAddr,
                          OrderItem[] productItemList, double totalAmount);
 
-    public boolean pay(int orderId);
-
     public boolean cancel(int orderId);
-
-    public boolean withdraw(int orderId);
 
     public boolean complete(int orderId);
 
