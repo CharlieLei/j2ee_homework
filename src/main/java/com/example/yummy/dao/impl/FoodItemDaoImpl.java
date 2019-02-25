@@ -49,10 +49,11 @@ public class FoodItemDaoImpl implements FoodItemDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         TypedQuery<FoodItem> query = session.createQuery(
-                "from FoodItem f where f.restaurantId = :restaurantId",
+                "from FoodItem f where f.restaurantId = :restaurantId and :endTime <= f.endTime",
                 FoodItem.class
         );
         query.setParameter("restaurantId", restaurantId);
+        query.setParameter("endTime", new Timestamp(System.currentTimeMillis()));
         List<FoodItem> foodItemList = query.getResultList();
         transaction.commit();
         session.close();

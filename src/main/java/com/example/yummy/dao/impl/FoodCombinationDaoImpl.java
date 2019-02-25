@@ -53,10 +53,11 @@ public class FoodCombinationDaoImpl implements FoodCombinationDao {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
         TypedQuery<FoodCombination> query = session.createQuery(
-                "from FoodCombination f where f.restaurantId = :restaurantId",
+                "from FoodCombination f where f.restaurantId = :restaurantId and :endTime <= f.endTime",
                 FoodCombination.class
         );
         query.setParameter("restaurantId", restaurantId);
+        query.setParameter("endTime", new Timestamp(System.currentTimeMillis()));
         List<FoodCombination> foodCombinationList = query.getResultList();
         transaction.commit();
         session.close();
