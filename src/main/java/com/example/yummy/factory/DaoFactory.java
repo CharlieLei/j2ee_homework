@@ -40,4 +40,12 @@ public class DaoFactory {
     public static CouponDao getCouponDao() {
         return new CouponDaoImpl();
     }
+
+    public static FoodItemDao getFoodItemDao() {
+        return new FoodItemDaoImpl();
+    }
+
+    public static FoodCombinationDao getFoodCombinationDao() {
+        return new FoodCombinationDaoImpl();
+    }
 }

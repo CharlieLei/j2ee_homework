@@ -6,8 +6,7 @@ import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberDeliveryAddress;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.order.OrderItem;
-import com.example.yummy.model.product.Product;
-import com.example.yummy.model.product.ProductItem;
+import com.example.yummy.model.product.*;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
 import com.example.yummy.model.yummyBill.YummyBill;
@@ -18,7 +17,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
 public class HibernateUtil {
-	private static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory = null;
 
 //	@Autowired
 //	public HibernateUtil(SessionFactory sessionFactory) {
@@ -43,8 +42,9 @@ public class HibernateUtil {
 				config.addAnnotatedClass(Order.class);
 				config.addAnnotatedClass(OrderItem.class);
 
-				config.addAnnotatedClass(Product.class);
-				config.addAnnotatedClass(ProductItem.class);
+				config.addAnnotatedClass(FoodItem.class);
+				config.addAnnotatedClass(FoodCombination.class);
+				config.addAnnotatedClass(CombinationItem.class);
 
 				config.addAnnotatedClass(YummyBill.class);
 

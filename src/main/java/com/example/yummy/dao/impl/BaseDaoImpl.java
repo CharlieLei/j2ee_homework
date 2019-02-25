@@ -4,7 +4,11 @@ import com.example.yummy.dao.BaseDao;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+import java.io.Serializable;
+
+@Repository(value = "baseDao")
 public class BaseDaoImpl implements BaseDao {
 
     @Override

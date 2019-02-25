@@ -51,19 +51,35 @@ password varchar(16),
 primary key (managerId)
 );
 
-create table if not exists products(
-productId int auto_increment,
-restaurantId char(7),
-productName varchar(20),
-quantity int,
-price double,
-primary key (productId)
+create table if not exists foodItems(
+                                      itemId int auto_increment,
+                                      restaurantId char(7),
+                                      itemName varchar(20),
+                                      quantity int,
+                                      price double,
+                                      startTime timestamp,
+                                      endTime timestamp,
+                                      primary key (itemId)
 );
 
-create table if not exists productItems(
-id int auto_increment,
-productId int,
-itemId int,
+create table if not exists foodCombinations(
+                                             combinationId int auto_increment,
+                                             restaurantId char(7),
+                                             combinationName varchar(20),
+                                             quantity int,
+                                             originalTotalPrice double,
+                                             discount double,
+                                             totalPrice double,
+                                             startTime timestamp,
+                                             endTime timestamp,
+                                             primary key (combinationId)
+);
+
+create table if not exists combinationItems(
+  id int auto_increment,
+  combinationId int,
+  itemId int,
+  amount int,
 primary key (id)
 );
 
