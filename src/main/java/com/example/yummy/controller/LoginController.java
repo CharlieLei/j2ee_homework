@@ -1,9 +1,9 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.service.manager.ManagerAccountService;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.restaurant.RestaurantAccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
-    private RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
-    private ManagerAccountService managerAccountService = ServiceFactory.getManagerAccountService();
+    @Autowired
+    private MemberAccountService memberAccountService;
+    @Autowired
+    private RestaurantAccountService restaurantAccountService;
+    @Autowired
+    private ManagerAccountService managerAccountService ;
 
     @RequestMapping(value = "/member", method = RequestMethod.GET)
     public boolean memberLogin(@RequestParam(value = "id") String memberId,

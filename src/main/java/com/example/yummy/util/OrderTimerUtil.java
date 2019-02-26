@@ -1,22 +1,26 @@
 package com.example.yummy.util;
 
-import com.example.yummy.dao.OrderDao;
-import com.example.yummy.factory.DaoFactory;
+import com.example.yummy.dao.order.OrderDao;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.order.OrderState;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
 public class OrderTimerUtil implements Runnable {
 
-    private OrderDao orderDao = DaoFactory.getOrderDao();
+    private OrderDao orderDao;
+
     private static final long waitingMillis = 2 * 60 * 1000;//15 * 60 * 1000;
     private static final long intervalMillis = 1000;
 
     private int orderId;
 
-    public OrderTimerUtil(int orderId) {
+    public void init(int orderId, OrderDao orderDao) {
         this.orderId = orderId;
+        this.orderDao = orderDao;
     }
 
     @Override

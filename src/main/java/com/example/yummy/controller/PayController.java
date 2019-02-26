@@ -1,7 +1,7 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.service.pay.PayService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/pay")
 public class PayController {
 
-    private PayService payService = ServiceFactory.getPayService();
+    @Autowired
+    private PayService payService;
 
     @RequestMapping(value = "/isLoginInfoCorrect", method = RequestMethod.GET)
     public boolean isLoginInfoCorrect(@RequestParam(name = "accountId") String accountId,

@@ -1,12 +1,12 @@
 package com.example.yummy.service.order;
 
-import com.example.yummy.dao.OrderDao;
-import com.example.yummy.dao.RestaurantDao;
-import com.example.yummy.dao.YummyDao;
-import com.example.yummy.factory.DaoFactory;
+import com.example.yummy.dao.order.OrderDao;
+import com.example.yummy.dao.restaurant.RestaurantDao;
+import com.example.yummy.dao.yummyBill.YummyDao;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.yummyBill.YummyBill;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,12 @@ import java.util.List;
 @Component
 public class YummyBillSettler {
 
-    private YummyDao yummyDao = DaoFactory.getYummyDao();
-    private OrderDao orderDao = DaoFactory.getOrderDao();
-    private RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+    @Autowired
+    private YummyDao yummyDao;
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private RestaurantDao restaurantDao;
 
     private static final double DISCOUNT = 0.9;
 

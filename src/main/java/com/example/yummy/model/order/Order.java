@@ -1,7 +1,7 @@
 package com.example.yummy.model.order;
 
 import com.example.yummy.model.Address;
-import com.example.yummy.model.product.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -45,9 +45,12 @@ public class Order implements Serializable {
     })
     private Address receiverAddr;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "orderId", referencedColumnName = "orderId")
-    private List<OrderItem> orderItemList;
+    private List<OrderFoodItem> orderFoodItemList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderId", referencedColumnName = "orderId")
+    private List<OrderFoodCombination> orderFoodCombinationList;
 
     @Column(name = "totalAmount")
     private double totalAmount;//总金额
@@ -65,8 +68,15 @@ public class Order implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-        for (OrderItem item: orderItemList) {
-            item.setOrderId(this.id);
+        if (orderFoodItemList != null) {
+            for (OrderFoodItem item: orderFoodItemList) {
+                item.setOrderId(this.id);
+            }
+        }
+        if (orderFoodCombinationList != null) {
+            for (OrderFoodCombination item: orderFoodCombinationList) {
+                item.setOrderId(this.id);
+            }
         }
     }
 
@@ -150,11 +160,19 @@ public class Order implements Serializable {
         this.state = state;
     }
 
-    public List<OrderItem> getOrderItemList() {
-        return orderItemList;
+    public List<OrderFoodItem> getOrderFoodItemList() {
+        return orderFoodItemList;
     }
 
-    public void setOrderItemList(List<OrderItem> orderItemList) {
-        this.orderItemList = orderItemList;
+    public void setOrderFoodItemList(List<OrderFoodItem> orderFoodItemList) {
+        this.orderFoodItemList = orderFoodItemList;
+    }
+
+    public List<OrderFoodCombination> getOrderFoodCombinationList() {
+        return orderFoodCombinationList;
+    }
+
+    public void setOrderFoodCombinationList(List<OrderFoodCombination> orderFoodCombinationList) {
+        this.orderFoodCombinationList = orderFoodCombinationList;
     }
 }

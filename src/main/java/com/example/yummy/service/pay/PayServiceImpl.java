@@ -1,26 +1,34 @@
 package com.example.yummy.service.pay;
 
-import com.example.yummy.dao.MemberDao;
-import com.example.yummy.dao.OrderDao;
-import com.example.yummy.dao.ProductDao;
-import com.example.yummy.dao.YummyDao;
-import com.example.yummy.factory.DaoFactory;
+import com.example.yummy.dao.food.FoodCombinationDao;
+import com.example.yummy.dao.food.FoodItemDao;
+import com.example.yummy.dao.member.MemberDao;
+import com.example.yummy.dao.order.OrderDao;
+import com.example.yummy.dao.yummyBill.YummyDao;
 import com.example.yummy.model.member.Member;
-import com.example.yummy.model.order.Order;
-import com.example.yummy.model.order.OrderItem;
-import com.example.yummy.model.order.OrderState;
-import com.example.yummy.model.product.Product;
+import com.example.yummy.model.order.*;
+import com.example.yummy.model.product.FoodCombination;
+import com.example.yummy.model.product.FoodItem;
 import com.example.yummy.model.yummyBill.YummyBill;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+@Service
 public class PayServiceImpl implements PayService {
 
-    private OrderDao orderDao = DaoFactory.getOrderDao();
-    private MemberDao memberDao = DaoFactory.getMemberDao();
-    private YummyDao yummyDao = DaoFactory.getYummyDao();
-    private ProductDao productDao = DaoFactory.getProductDao();
+    @Autowired
+    private FoodItemDao foodItemDao;
+    @Autowired
+    private FoodCombinationDao foodCombinationDao;
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private MemberDao memberDao;
+    @Autowired
+    private YummyDao yummyDao;
 
     private long withdrawThresholdMills = 5 * 60 * 1000;
 
@@ -39,6 +47,20 @@ public class PayServiceImpl implements PayService {
             order.setRefund(0);
             order.setState(OrderState.DELIVERING);
             orderDao.modify(order);
+
+            List<OrderFoodItem> foodItemList = order.getOrderFoodItemList();
+            for (OrderFoodItem orderFoodItem: foodItemList) {
+                FoodItem foodItem = orderFoodItem.getFoodItem();
+                foodItem.setQuantity(foodItem.getQuantity() - orderFoodItem.getAmount());
+                foodItemDao.modify(foodItem);
+            }
+
+            List<OrderFoodCombination> foodCombinationList = order.getOrderFoodCombinationList();
+            for (OrderFoodCombination orderFoodCombination: foodCombinationList) {
+                FoodCombination foodCombination = orderFoodCombination.getFoodCombination();
+                foodCombination.setQuantity(foodCombination.getQuantity() - orderFoodCombination.getAmount());
+                foodCombinationDao.modify(foodCombination);
+            }
 
             double totalAmount = order.getTotalAmount();
             member.getMemberInfo().setBalance(member.getMemberInfo().getBalance() - totalAmount);
@@ -84,11 +106,20 @@ public class PayServiceImpl implements PayService {
     }
 
     private boolean isProductsInOrderEnough(Order order) {
-        List<OrderItem> orderItemList = order.getOrderItemList();
-        for (OrderItem item: orderItemList) {
-            Product product = productDao.get(item.getProductId());
+        List<OrderFoodItem> foodItemList = order.getOrderFoodItemList();
+        for (OrderFoodItem orderFoodItem: foodItemList) {
+            FoodItem foodItem = orderFoodItem.getFoodItem();
 
-            if (product.getQuantity() < item.getItemAmount()) {
+            if (foodItem.getQuantity() < orderFoodItem.getAmount()) {
+                return false;
+            }
+        }
+
+        List<OrderFoodCombination> foodCombinationList = order.getOrderFoodCombinationList();
+        for (OrderFoodCombination orderFoodCombination: foodCombinationList) {
+            FoodCombination foodCombination = orderFoodCombination.getFoodCombination();
+
+            if (foodCombination.getQuantity() < orderFoodCombination.getAmount()) {
                 return false;
             }
         }

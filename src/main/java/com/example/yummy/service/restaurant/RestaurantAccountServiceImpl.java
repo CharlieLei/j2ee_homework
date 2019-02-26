@@ -1,18 +1,22 @@
 package com.example.yummy.service.restaurant;
 
-import com.example.yummy.dao.RestaurantDao;
-import com.example.yummy.dao.RestaurantInfoChangeDao;
-import com.example.yummy.factory.DaoFactory;
+import com.example.yummy.dao.restaurant.RestaurantDao;
+import com.example.yummy.dao.restaurant.RestaurantInfoChangeDao;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfo;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
 import com.example.yummy.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RestaurantAccountServiceImpl implements RestaurantAccountService {
 
-    private RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
-    private RestaurantInfoChangeDao restaurantInfoChangeDao = DaoFactory.getRestaurantInfoChangeDao();
+    @Autowired
+    private RestaurantDao restaurantDao;
+    @Autowired
+    private RestaurantInfoChangeDao restaurantInfoChangeDao;
 
     @Override
     public String register(String password, RestaurantInfo restaurantInfo) {

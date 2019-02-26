@@ -1,9 +1,8 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
-import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
 import com.example.yummy.service.examineInfoChange.ExamineInfoChangeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,8 @@ import java.util.List;
 @RequestMapping(value = "/examineInfoChange")
 public class ExamineInfoChangeController {
 
-    private ExamineInfoChangeService examineInfoChangeService = ServiceFactory.getExamineInfoChangeService();
+    @Autowired
+    private ExamineInfoChangeService examineInfoChangeService;
 
     @RequestMapping(value = "/getAllUnexaminedRestaurantInfoChanges", method = RequestMethod.GET)
     public List<RestaurantInfoChange> getAllUnexaminedRestaurantInfoChanges() {

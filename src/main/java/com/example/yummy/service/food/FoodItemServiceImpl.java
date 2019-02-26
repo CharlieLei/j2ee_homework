@@ -1,6 +1,6 @@
 package com.example.yummy.service.food;
 
-import com.example.yummy.dao.FoodItemDao;
+import com.example.yummy.dao.food.FoodItemDao;
 import com.example.yummy.model.product.FoodItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

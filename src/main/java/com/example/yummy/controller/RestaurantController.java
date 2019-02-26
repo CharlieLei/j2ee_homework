@@ -1,6 +1,5 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.member.MemberLevel;
 import com.example.yummy.model.restaurant.Restaurant;
@@ -12,6 +11,7 @@ import com.example.yummy.service.restaurant.RestaurantService;
 import com.example.yummy.service.restaurant.RestaurantStatisticsService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -22,9 +22,12 @@ import java.util.List;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
-    private RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
-    private RestaurantService restaurantService = ServiceFactory.getRestaurantService();
-    private RestaurantStatisticsService restaurantStatisticsService = ServiceFactory.getRestaurantStatisticsService();
+    @Autowired
+    private RestaurantAccountService restaurantAccountService;
+    @Autowired
+    private RestaurantService restaurantService;
+    @Autowired
+    private RestaurantStatisticsService restaurantStatisticsService;
 
     @RequestMapping(value = "/modifyInfo", method = RequestMethod.GET)
     public boolean modifyInfo(@RequestParam(value = "restaurantId") String restaurantId,

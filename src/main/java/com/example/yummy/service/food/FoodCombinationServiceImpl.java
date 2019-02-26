@@ -1,7 +1,6 @@
 package com.example.yummy.service.food;
 
-import com.example.yummy.dao.FoodCombinationDao;
-import com.example.yummy.dao.FoodItemDao;
+import com.example.yummy.dao.food.FoodCombinationDao;
 import com.example.yummy.model.product.CombinationItem;
 import com.example.yummy.model.product.FoodCombination;
 import com.example.yummy.model.product.FoodItem;
@@ -16,8 +15,6 @@ public class FoodCombinationServiceImpl implements FoodCombinationService {
 
     @Autowired
     private FoodCombinationDao foodCombinationDao;
-    @Autowired
-    private FoodItemDao foodItemDao;
 
     @Override
     public boolean add(FoodCombination foodCombination) {

@@ -1,24 +1,26 @@
 package com.example.yummy.service.member;
 
-import com.example.yummy.dao.MemberDao;
-import com.example.yummy.dao.OrderDao;
-import com.example.yummy.dao.RestaurantDao;
-import com.example.yummy.factory.DaoFactory;
-import com.example.yummy.model.member.Member;
+import com.example.yummy.dao.order.OrderDao;
+import com.example.yummy.dao.restaurant.RestaurantDao;
 import com.example.yummy.model.order.Order;
 import com.example.yummy.model.order.OrderState;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.model.statistics.MemberStatistics;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class MemberStatisticsServiceImpl implements MemberStatisticsService {
 
-    private OrderDao orderDao = DaoFactory.getOrderDao();
-    private RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+    @Autowired
+    private OrderDao orderDao;
+    @Autowired
+    private RestaurantDao restaurantDao;
 
     private static final long intervalMills = 24 * 60 * 60 * 1000;
 

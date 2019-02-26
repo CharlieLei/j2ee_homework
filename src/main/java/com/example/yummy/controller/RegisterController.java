@@ -1,15 +1,12 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
-import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberInfo;
-import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfo;
-import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.restaurant.RestaurantAccountService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -17,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/register")
 public class RegisterController {
 
-    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
-    private  RestaurantAccountService restaurantAccountService = ServiceFactory.getRestaurantAccountService();
+    @Autowired
+    private MemberAccountService memberAccountService;
+    @Autowired
+    private  RestaurantAccountService restaurantAccountService;
 
     @RequestMapping(value = "/member", method = RequestMethod.GET)
     public boolean memberRegister(@RequestParam(value = "memberId") String memberId,

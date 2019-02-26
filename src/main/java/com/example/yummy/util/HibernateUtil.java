@@ -1,11 +1,11 @@
 package com.example.yummy.util;
 
-import com.example.yummy.model.coupon.Coupon;
 import com.example.yummy.model.manager.Manager;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberDeliveryAddress;
 import com.example.yummy.model.order.Order;
-import com.example.yummy.model.order.OrderItem;
+import com.example.yummy.model.order.OrderFoodCombination;
+import com.example.yummy.model.order.OrderFoodItem;
 import com.example.yummy.model.product.*;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
@@ -40,15 +40,14 @@ public class HibernateUtil {
 				config.addAnnotatedClass(Manager.class);
 
 				config.addAnnotatedClass(Order.class);
-				config.addAnnotatedClass(OrderItem.class);
+				config.addAnnotatedClass(OrderFoodItem.class);
+				config.addAnnotatedClass(OrderFoodCombination.class);
 
 				config.addAnnotatedClass(FoodItem.class);
 				config.addAnnotatedClass(FoodCombination.class);
 				config.addAnnotatedClass(CombinationItem.class);
 
 				config.addAnnotatedClass(YummyBill.class);
-
-				config.addAnnotatedClass(Coupon.class);
 
 				serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 				sessionFactory = config.buildSessionFactory(serviceRegistry);

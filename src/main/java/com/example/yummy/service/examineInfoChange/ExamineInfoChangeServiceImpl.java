@@ -1,17 +1,21 @@
 package com.example.yummy.service.examineInfoChange;
 
-import com.example.yummy.dao.RestaurantDao;
-import com.example.yummy.dao.RestaurantInfoChangeDao;
-import com.example.yummy.factory.DaoFactory;
+import com.example.yummy.dao.restaurant.RestaurantDao;
+import com.example.yummy.dao.restaurant.RestaurantInfoChangeDao;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ExamineInfoChangeServiceImpl implements ExamineInfoChangeService {
 
-    private RestaurantInfoChangeDao restaurantInfoChangeDao = DaoFactory.getRestaurantInfoChangeDao();
-    private RestaurantDao restaurantDao = DaoFactory.getRestaurantDao();
+    @Autowired
+    private RestaurantInfoChangeDao restaurantInfoChangeDao;
+    @Autowired
+    private RestaurantDao restaurantDao;
 
     @Override
     public List<RestaurantInfoChange> getAllUnexaminedRestaurantInfoChanges() {

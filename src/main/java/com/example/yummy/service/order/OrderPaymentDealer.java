@@ -1,9 +1,9 @@
 //package com.example.yummy.service.order;
 //
-//import com.example.yummy.dao.MemberDao;
-//import com.example.yummy.dao.OrderDao;
+//import com.example.yummy.dao.member.MemberDao;
+//import com.example.yummy.dao.order.OrderDao;
 //import com.example.yummy.dao.ProductDao;
-//import com.example.yummy.dao.YummyDao;
+//import com.example.yummy.dao.yummyBill.YummyDao;
 //import com.example.yummy.factory.DaoFactory;
 //import com.example.yummy.model.member.Member;
 //import com.example.yummy.model.order.Order;

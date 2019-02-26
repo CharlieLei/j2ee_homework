@@ -1,6 +1,5 @@
 package com.example.yummy.controller;
 
-import com.example.yummy.factory.ServiceFactory;
 import com.example.yummy.model.Address;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.member.MemberInfo;
@@ -11,6 +10,7 @@ import com.example.yummy.service.member.MemberService;
 import com.example.yummy.service.member.MemberStatisticsService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -21,9 +21,12 @@ import java.sql.Timestamp;
 @RequestMapping("/member")
 public class MemberController {
 
-    private MemberAccountService memberAccountService = ServiceFactory.getMemberAccountService();
-    private MemberService memberService = ServiceFactory.getMemberService();
-    private MemberStatisticsService memberStatisticsService = ServiceFactory.getMemberStatisticsService();
+    @Autowired
+    private MemberAccountService memberAccountService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private MemberStatisticsService memberStatisticsService;
 
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     public boolean cancelMember(@RequestParam(value = "memberId") String memberId) {

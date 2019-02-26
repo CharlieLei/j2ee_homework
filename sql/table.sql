@@ -106,13 +106,20 @@ state int,
 primary key (orderId)
 );
 
-create table if not exists orderItems(
-id int auto_increment,
-orderId int,
-productId int,
-itemAmount int,
-itemPrice double,
-primary key (id)
+create table if not exists orderFoodItems(
+  id int auto_increment,
+  orderId int,
+  itemId int,
+  amount int,
+  primary key (id)
+);
+
+create table if not exists orderFoodCombinations(
+                                                  id int auto_increment,
+                                                  orderId int,
+                                                  combinationId int,
+                                                  amount int,
+                                                  primary key (id)
 );
 
 create table if not exists yummyBills(
@@ -121,12 +128,4 @@ orderId int ,
 isSettled boolean ,
 settleAmount double,
 primary key (tradingDate)
-);
-
-create table if not exists coupons(
-  couponId int auto_increment,
-  restaurantId char(7),
-  value double,
-  amount int,
-  primary key (couponId)
 );
