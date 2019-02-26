@@ -34,14 +34,14 @@ public class Order implements Serializable {
     @AttributeOverrides({
             @AttributeOverride(name = "longitude", column = @Column(name = "senderLongitude")),
             @AttributeOverride(name = "latitude", column = @Column(name = "senderLatitude")),
-            @AttributeOverride(name = "name", column = @Column(name = "senderAddrName"))
+            @AttributeOverride(name = "addrName", column = @Column(name = "senderAddrName"))
     })
     private Address senderAddr;
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "longitude", column = @Column(name = "receiverLongitude")),
             @AttributeOverride(name = "latitude", column = @Column(name = "receiverLatitude")),
-            @AttributeOverride(name = "name", column = @Column(name = "receiverAddrName"))
+            @AttributeOverride(name = "addrName", column = @Column(name = "receiverAddrName"))
     })
     private Address receiverAddr;
 

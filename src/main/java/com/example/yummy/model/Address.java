@@ -11,7 +11,7 @@ public class Address implements Serializable {
     @Column(name = "latitude")
     private double latitude;
     @Column(name = "addrName")
-    private String name;
+    private String addrName;
 
     public double getLongitude() {
         return longitude;
@@ -30,10 +30,10 @@ public class Address implements Serializable {
     }
 
     public String getAddrName() {
-        return name;
+        return addrName;
     }
 
     public void setAddrName(String name) {
-        this.name = name;
+        this.addrName = name;
     }
 }
