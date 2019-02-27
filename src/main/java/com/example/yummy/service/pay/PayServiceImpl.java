@@ -6,6 +6,7 @@ import com.example.yummy.dao.member.MemberDao;
 import com.example.yummy.dao.order.OrderDao;
 import com.example.yummy.dao.yummyBill.YummyDao;
 import com.example.yummy.model.member.Member;
+import com.example.yummy.model.member.MemberLevel;
 import com.example.yummy.model.order.*;
 import com.example.yummy.model.product.FoodCombination;
 import com.example.yummy.model.product.FoodItem;
