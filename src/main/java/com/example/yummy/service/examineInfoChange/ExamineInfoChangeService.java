@@ -11,4 +11,10 @@ public interface ExamineInfoChangeService {
     public boolean approveRestaurantInfoChange(int id, String restaurantId);
 
     public boolean disapproveRestaurantInfoChange(int id, String restaurantId);
+
+    public List<Restaurant> getAllUnactivatedRestaurants();
+
+    public boolean approveRestaurant(String restaurantId);
+
+    public boolean disapproveRestaurant(String restaurantId);
 }

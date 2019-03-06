@@ -29,6 +29,7 @@ latitude double,
 addrName varchar(100),
 balance double,
 restaurantType int,
+state int,
 primary key (restaurantId)
 );
 

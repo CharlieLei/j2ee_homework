@@ -2,6 +2,7 @@ package com.example.yummy.dao.restaurant;
 
 import com.example.yummy.dao.BaseDao;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantState;
 import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.util.HibernateUtil;
 import org.hibernate.Session;
@@ -25,11 +26,12 @@ public class RestaurantDaoImpl implements RestaurantDao {
         Transaction transaction = session.beginTransaction();
 
         TypedQuery<Restaurant> query = session.createQuery(
-                "select r from Restaurant r where r.id = ?1 and r.password = ?2",
+                "select r from Restaurant r where r.id = ?1 and r.password = ?2 and r.state = :state",
                 Restaurant.class
         );
         query.setParameter(1, restaurantId);
         query.setParameter(2, password);
+        query.setParameter("state", RestaurantState.ACTIVATED);
 
         List<Restaurant> list = query.getResultList();
         transaction.commit();
@@ -60,23 +62,25 @@ public class RestaurantDaoImpl implements RestaurantDao {
     }
 
     @Override
-    public List<Restaurant> getRestaurantsByType(RestaurantType type) {
+    public List<Restaurant> getRestaurantsByType(RestaurantType type, RestaurantState state) {
         Session session = HibernateUtil.getSession();
         Transaction transaction = session.beginTransaction();
 
         List<Restaurant> list;
         if (type == null) {
             TypedQuery<Restaurant> query = session.createQuery(
-                    "select r from Restaurant r",
+                    "select r from Restaurant r where r.state = :state",
                     Restaurant.class
             );
+            query.setParameter("state", state);
             list = query.getResultList();
         }else {
             TypedQuery<Restaurant> query = session.createQuery(
-                    "select r from Restaurant r where r.restaurantInfo.restaurantType = ?1",
+                    "select r from Restaurant r where r.restaurantInfo.restaurantType = ?1 and r.state = :state",
                     Restaurant.class
             );
             query.setParameter(1, type);
+            query.setParameter("state", state);
             list = query.getResultList();
         }
         transaction.commit();

@@ -59,6 +59,10 @@ public class HibernateUtil {
 	 }
 
 	 public static Session getSession(){
-		 return getSessionFactory().getCurrentSession();
+		 if (sessionFactory == null) {
+			 return getSessionFactory().getCurrentSession();
+		 }else {
+		 	return sessionFactory.getCurrentSession();
+		 }
 	 }
 }

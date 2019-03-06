@@ -54,7 +54,7 @@ public class RestaurantController {
     @RequestMapping(value = "/getRestaurantsByType", method = RequestMethod.GET)
     public List<Restaurant> getRestaurantsByType(@RequestParam(value = "restaurantType") String restaurantType) {
         RestaurantType type = RestaurantType.getEnum(restaurantType);
-        return restaurantService.getRestaurantsByType(type);
+        return restaurantService.getActivatedRestaurantsByType(type);
     }
 
     @RequestMapping(value = "/getStatistics", method = RequestMethod.GET)

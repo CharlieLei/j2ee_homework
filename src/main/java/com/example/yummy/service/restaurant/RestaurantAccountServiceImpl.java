@@ -6,6 +6,7 @@ import com.example.yummy.model.Address;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfo;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
+import com.example.yummy.model.restaurant.RestaurantState;
 import com.example.yummy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +20,12 @@ public class RestaurantAccountServiceImpl implements RestaurantAccountService {
     private RestaurantInfoChangeDao restaurantInfoChangeDao;
 
     @Override
-    public String register(String password, RestaurantInfo restaurantInfo) {
-        Restaurant restaurant = new Restaurant();
-        restaurant.setPassword(password);
-        restaurant.setRestaurantInfo(restaurantInfo);
+    public boolean register(Restaurant restaurant) {
+
         restaurant.setBalance(0);
+        restaurant.setState(RestaurantState.NOT_ACTIVATED);
 
-        String restaurantId = StringUtil.generateRestaurantId();
-        restaurant.setId(restaurantId);
-
-        restaurantDao.add(restaurant);
-
-        return restaurant.getId();
+        return restaurantDao.add(restaurant);
     }
 
     @Override
@@ -40,6 +35,11 @@ public class RestaurantAccountServiceImpl implements RestaurantAccountService {
 
     @Override
     public boolean modifyInfo(String restaurantId, RestaurantInfo restaurantInfo) {
+
+        Restaurant restaurant = restaurantDao.get(restaurantId);
+        restaurant.setState(RestaurantState.MODIFYING);
+        restaurantDao.modify(restaurant);
+
         RestaurantInfoChange restaurantInfoChange = restaurantInfoChangeDao.getUnexamined(restaurantId);
 
         if (restaurantInfoChange == null) {

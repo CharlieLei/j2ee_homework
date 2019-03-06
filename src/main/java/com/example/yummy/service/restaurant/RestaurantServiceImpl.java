@@ -2,6 +2,7 @@ package com.example.yummy.service.restaurant;
 
 import com.example.yummy.dao.restaurant.RestaurantDao;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantState;
 import com.example.yummy.model.restaurant.RestaurantType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getRestaurantsByType(RestaurantType restaurantType) {
-        return restaurantDao.getRestaurantsByType(restaurantType);
+    public List<Restaurant> getActivatedRestaurantsByType(RestaurantType restaurantType) {
+        return restaurantDao.getRestaurantsByType(restaurantType, RestaurantState.ACTIVATED);
     }
 }

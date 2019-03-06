@@ -4,6 +4,7 @@ import com.example.yummy.dao.restaurant.RestaurantDao;
 import com.example.yummy.dao.restaurant.RestaurantInfoChangeDao;
 import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfoChange;
+import com.example.yummy.model.restaurant.RestaurantState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +55,24 @@ public class ExamineInfoChangeServiceImpl implements ExamineInfoChangeService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public List<Restaurant> getAllUnactivatedRestaurants() {
+        return restaurantDao.getRestaurantsByType(null, RestaurantState.NOT_ACTIVATED);
+    }
+
+    @Override
+    public boolean approveRestaurant(String restaurantId) {
+        Restaurant restaurant = restaurantDao.get(restaurantId);
+        restaurant.setState(RestaurantState.ACTIVATED);
+        return restaurantDao.modify(restaurant);
+    }
+
+    @Override
+    public boolean disapproveRestaurant(String restaurantId) {
+        Restaurant restaurant = restaurantDao.get(restaurantId);
+        restaurant.setState(RestaurantState.DISAPPROVED);
+        return restaurantDao.modify(restaurant);
     }
 }

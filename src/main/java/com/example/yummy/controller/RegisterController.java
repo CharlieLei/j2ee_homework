@@ -1,6 +1,7 @@
 package com.example.yummy.controller;
 
 import com.example.yummy.model.member.MemberInfo;
+import com.example.yummy.model.restaurant.Restaurant;
 import com.example.yummy.model.restaurant.RestaurantInfo;
 import com.example.yummy.service.member.MemberAccountService;
 import com.example.yummy.service.restaurant.RestaurantAccountService;
@@ -37,11 +38,10 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/restaurant", method = RequestMethod.GET)
-    public String restaurantRegister(@RequestParam(value = "password") String password,
-                                     @RequestParam(value = "restaurantInfo") String restaurantInfoJson) {
+    public boolean restaurantRegister(@RequestParam(value = "restaurant") String restaurantJson) {
 
         Gson gson = new GsonBuilder().create();
-        RestaurantInfo restaurantInfo = gson.fromJson(restaurantInfoJson, RestaurantInfo.class);
-        return restaurantAccountService.register(password, restaurantInfo);
+        Restaurant restaurant = gson.fromJson(restaurantJson, Restaurant.class);
+        return restaurantAccountService.register(restaurant);
     }
 }

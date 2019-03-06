@@ -32,20 +32,40 @@ public class RestaurantStatisticsServiceImpl implements RestaurantStatisticsServ
 
         RestaurantStatistics statistics = new RestaurantStatistics();
 
-        int completedOrderAmount = this.getOrderAmount(
+        List<Order> completedOrderList = orderDao.getAllOrdersOfThisRestaurant(
                 restaurantId,
                 startTime, endTime,
                 lowerAmount, upperAmount,
-                memberLevel, OrderState.COMPLETED
+                OrderState.COMPLETED
         );
+        statistics.setCompletedOrderList(new ArrayList<>());
+        int completedOrderAmount = 0;
+        for (Order order: completedOrderList) {
+            Member member = memberDao.get(order.getMemberId());
+
+            if (memberLevel == null || member.getMemberInfo().getLevel() == memberLevel) {
+                completedOrderAmount++;
+                statistics.getCompletedOrderList().add(order);
+            }
+        }
         statistics.setCompletedOrderAmount(completedOrderAmount);
 
-        int withdrawnOrderAmount = this.getOrderAmount(
+        List<Order> withdrawnOrderList = orderDao.getAllOrdersOfThisRestaurant(
                 restaurantId,
                 startTime, endTime,
                 lowerAmount, upperAmount,
-                memberLevel, OrderState.CANCELLED
+                OrderState.CANCELLED
         );
+        statistics.setWithdrawnOrderList(new ArrayList<>());
+        int withdrawnOrderAmount = 0;
+        for (Order order: withdrawnOrderList) {
+            Member member = memberDao.get(order.getMemberId());
+
+            if (memberLevel == null || member.getMemberInfo().getLevel() == memberLevel) {
+                withdrawnOrderAmount++;
+                statistics.getWithdrawnOrderList().add(order);
+            }
+        }
         statistics.setWithdrawnOrderAmount(withdrawnOrderAmount);
 
         List<Double> incomePerDay = new ArrayList<>();
@@ -75,26 +95,5 @@ public class RestaurantStatisticsServiceImpl implements RestaurantStatisticsServ
         statistics.setIncomePerDay(incomePerDay);
 
         return statistics;
-    }
-
-    private int getOrderAmount(String restaurantId,
-                               Timestamp startTime, Timestamp endTime,
-                               double lowerAmount, double upperAmount,
-                               MemberLevel memberLevel, OrderState orderState) {
-        List<Order> orderList = orderDao.getAllOrdersOfThisRestaurant(
-                restaurantId,
-                startTime, endTime,
-                lowerAmount, upperAmount,
-                orderState
-        );
-        int orderAmount = 0;
-        for (Order order: orderList) {
-            Member member = memberDao.get(order.getMemberId());
-
-            if (memberLevel == null || member.getMemberInfo().getLevel() == memberLevel) {
-                orderAmount++;
-            }
-        }
-        return orderAmount;
     }
 }

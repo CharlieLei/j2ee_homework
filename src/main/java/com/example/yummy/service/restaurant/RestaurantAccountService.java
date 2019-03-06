@@ -8,7 +8,7 @@ import com.example.yummy.model.restaurant.RestaurantType;
 import java.util.List;
 
 public interface RestaurantAccountService {
-    public String register(String password, RestaurantInfo restaurantInfo);
+    public boolean register(Restaurant restaurant);
 
     public boolean login(String restaurantId, String password);
 

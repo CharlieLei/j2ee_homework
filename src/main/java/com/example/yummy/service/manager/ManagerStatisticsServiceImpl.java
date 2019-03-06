@@ -5,6 +5,7 @@ import com.example.yummy.dao.restaurant.RestaurantDao;
 import com.example.yummy.dao.yummyBill.YummyDao;
 import com.example.yummy.model.member.Member;
 import com.example.yummy.model.restaurant.Restaurant;
+import com.example.yummy.model.restaurant.RestaurantState;
 import com.example.yummy.model.restaurant.RestaurantType;
 import com.example.yummy.model.statistics.ManagerStatistics;
 import com.example.yummy.model.yummyBill.YummyBill;
@@ -35,7 +36,7 @@ public class ManagerStatisticsServiceImpl implements ManagerStatisticsService {
         List<RestaurantType> restaurantTypeList = new ArrayList<>(Arrays.asList(RestaurantType.values()));
         List<Integer> restaurantAmountList = new ArrayList<>();
         for (RestaurantType type: RestaurantType.values()) {
-            List<Restaurant> restaurantList = restaurantDao.getRestaurantsByType(type);
+            List<Restaurant> restaurantList = restaurantDao.getRestaurantsByType(type, RestaurantState.ACTIVATED);
             restaurantAmountList.add(restaurantList.size());
         }
         statistics.setRestaurantTypeList(restaurantTypeList);

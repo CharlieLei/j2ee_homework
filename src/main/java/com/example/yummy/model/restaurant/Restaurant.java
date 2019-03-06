@@ -22,6 +22,9 @@ public class Restaurant implements Serializable {
     @Embedded
     private Address address;
 
+    @Column(name = "state")
+    private RestaurantState state;
+
     public Restaurant() {
     }
 
@@ -63,5 +66,13 @@ public class Restaurant implements Serializable {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public RestaurantState getState() {
+        return state;
+    }
+
+    public void setState(RestaurantState state) {
+        this.state = state;
     }
 }

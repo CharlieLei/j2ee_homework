@@ -32,20 +32,40 @@ public class MemberStatisticsServiceImpl implements MemberStatisticsService {
 
         MemberStatistics statistics = new MemberStatistics();
 
-        int completedOrderAmount = this.getOrderAmount(
+        List<Order> completedOrderList = orderDao.getAllOrder(
                 memberId,
                 startTime, endTime,
                 lowerAmount, upperAmount,
-                restaurantType, OrderState.COMPLETED
+                OrderState.COMPLETED
         );
+        statistics.setCompletedOrderList(new ArrayList<>());
+        int completedOrderAmount = 0;
+        for (Order order: completedOrderList) {
+            Restaurant restaurant = restaurantDao.get(order.getRestaurantId());
+
+            if (restaurantType == null || restaurant.getRestaurantInfo().getRestaurantType() == restaurantType) {
+                completedOrderAmount++;
+                statistics.getCompletedOrderList().add(order);
+            }
+        }
         statistics.setCompletedOrderAmount(completedOrderAmount);
 
-        int withdrawnOrderAmount = this.getOrderAmount(
+        List<Order> withdrawnOrderList = orderDao.getAllOrder(
                 memberId,
                 startTime, endTime,
                 lowerAmount, upperAmount,
-                restaurantType, OrderState.CANCELLED
+                OrderState.CANCELLED
         );
+        statistics.setWithdrawnOrderList(new ArrayList<>());
+        int withdrawnOrderAmount = 0;
+        for (Order order: withdrawnOrderList) {
+            Restaurant restaurant = restaurantDao.get(order.getRestaurantId());
+
+            if (restaurantType == null || restaurant.getRestaurantInfo().getRestaurantType() == restaurantType) {
+                withdrawnOrderAmount++;
+                statistics.getWithdrawnOrderList().add(order);
+            }
+        }
         statistics.setWithdrawnOrderAmount(withdrawnOrderAmount);
 
         List<Double> expensePerDay = new ArrayList<>();
@@ -75,26 +95,5 @@ public class MemberStatisticsServiceImpl implements MemberStatisticsService {
         statistics.setExpensePerDay(expensePerDay);
 
         return statistics;
-    }
-
-    private int getOrderAmount(String memberId,
-                               Timestamp startTime, Timestamp endTime,
-                               double lowerAmount, double upperAmount,
-                               RestaurantType restaurantType, OrderState orderState) {
-        List<Order> orderList = orderDao.getAllOrder(
-                memberId,
-                startTime, endTime,
-                lowerAmount, upperAmount,
-                orderState
-        );
-        int orderAmount = 0;
-        for (Order order: orderList) {
-            Restaurant restaurant = restaurantDao.get(order.getRestaurantId());
-
-            if (restaurantType == null || restaurant.getRestaurantInfo().getRestaurantType() == restaurantType) {
-                orderAmount++;
-            }
-        }
-        return orderAmount;
     }
 }
